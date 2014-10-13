@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "q2admin.vs2010", "q2admin.vs2010.vcxproj", "{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug Alpha|Win32 = Debug Alpha|Win32
+		Debug|Win32 = Debug|Win32
+		Release Alpha|Win32 = Release Alpha|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Debug Alpha|Win32.ActiveCfg = Debug Alpha|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Debug Alpha|Win32.Build.0 = Debug Alpha|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Debug|Win32.Build.0 = Debug|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Release Alpha|Win32.ActiveCfg = Release Alpha|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Release Alpha|Win32.Build.0 = Release Alpha|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Release|Win32.ActiveCfg = Release|Win32
+		{38B35C74-40BE-0696-07A4-E1A5D53F2A8E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
