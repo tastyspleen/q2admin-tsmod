@@ -51,7 +51,7 @@ void *hdll = NULL;
 
 #elif defined(WIN32)
 HINSTANCE hdll;
-#define DLLNAME   "gamex86.dll"
+#define DLLNAME   "gamex86.real.dll"  // Not sure how this was suppsoed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
 #define DLLNAMEMODDIR "gamex86.real.dll"
 #else
 #error Unknown OS
