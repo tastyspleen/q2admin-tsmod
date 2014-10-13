@@ -1030,9 +1030,9 @@ str++; \
 
 #define itoa(x, y, z)   itoaNotAUnixFunction(z, y, z)
 
-#define INITPERFORMANCE(instance) unsigned long performancetimer##instance
+#define INITPERFORMANCE(instance) unsigned long performancetimer##instance = 0
 #define INITPERFORMANCE_2(instance) \
-unsigned long performancetimer##instance; \
+unsigned long performancetimer##instance = 0; \
 static unsigned long totalperformancetimer##instance = 0; \
 static int countperformancetimer##instance = 0
 
