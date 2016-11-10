@@ -296,7 +296,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 	{ 
 		if (proxyinfo[client].show_fps)
 		{
-			if (proxyinfo[client].msec_count = 500)
+			if (proxyinfo[client].msec_count == 500)
 			{
 				gi.cprintf(ent, PRINT_HIGH, "%3.2f fps\n", (float)proxyinfo[client].frames_count * 2);
 			}
