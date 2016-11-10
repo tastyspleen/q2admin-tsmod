@@ -1971,8 +1971,6 @@ int checkCheckIfBanned(edict_t *ent, int client)
 		
 	currentBanMsg = defaultBanMsg;
 	return checkBanList(ent, client);
-	
-	return 0;
 }
 
 
