@@ -44,7 +44,13 @@ void *hdll = NULL;
 #elif defined(SOLARIS_SPARC)
 	#define DLLNAME   "gamesparc.real.so"
 #elif defined (LINUX)
+#if defined __i386__
 	#define DLLNAME "gamei386.real.so"
+#elif defined __x86_64__
+	#define DLLNAME "gamex86_64.real.so"
+#else
+	#error Unknown architecture
+#endif
 #else
 	#error Unknown GNUC OS
 #endif
