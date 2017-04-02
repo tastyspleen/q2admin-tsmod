@@ -5,8 +5,9 @@ ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/ar
 
 #ARCH=i386
 
-# removed gcc configuration lines here. 
-# Invoking cc on current Linux systems implies -std=c11 by default
+gcc -std=gnu99
+
+cc = gcc
 
 CFLAGS =-O2 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
 LDFLAGS = -ldl -lm -shared
