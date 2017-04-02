@@ -5,7 +5,7 @@ ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/ar
 
 #ARCH=i386
 
-gcc -std=gnu99
+CC = gcc -std=gnu99
 
 cc = gcc
 
