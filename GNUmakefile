@@ -1,8 +1,5 @@
 # q2admin.so linux makefile
 
-# -I/usr/i486-linuxlibc1/include
-
-
 #this nice line comes from the linux kernel makefile
 ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/)
 
