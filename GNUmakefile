@@ -22,22 +22,22 @@ endif
 OUTFILES = g_main.o zb_spawn.o zb_vote.o zb_ban.o zb_cmd.o zb_flood.o zb_init.o zb_log.o zb_lrcon.o zb_msgqueue.o zb_util.o zb_zbot.o zb_zbotcheck.o regex.o zb_disable.o zb_checkvar.o md4.o
 
 game$(ARCH).so: $(OUTFILES)
-        $(CC) $(CFLAGS) $(OUTFILES) $(LDFLAGS) -o game$(ARCH).so
-        ldd -r $@
+	$(CC) $(CFLAGS) $(OUTFILES) $(LDFLAGS) -o game$(ARCH).so
+	ldd -r $@
 
 zip: q2admin.so
-        strip game$(ARCH).so
-        zip -9 q2admin-game$(ARCH).zip game$(ARCH).so
+	strip game$(ARCH).so
+	zip -9 q2admin-game$(ARCH).zip game$(ARCH).so
 
 clean:
-        rm -f $(OUTFILES) game$(ARCH).so
+	rm -f $(OUTFILES) game$(ARCH).so
 
 depends:
-        $(CC) $(CFLAGS) -MM *.c > dependencies
+	$(CC) $(CFLAGS) -MM *.c > dependencies
 
 all:
-        make clean
-        make depends
-        make
+	make clean
+	make depends
+	make
 
 -include dependencies
