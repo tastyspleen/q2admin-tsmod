@@ -1,4 +1,4 @@
-# q2admin.so linux makefile
+# q2admin.so FreeBSD makefile
 
 # -I/usr/i486-linuxlibc1/include
 
@@ -6,7 +6,7 @@
 CC      = gcc
 # CC      = /usr/i486-linuxlibc1/bin/gcc
 CFLAGS  = -m32 -O2 -fPIC -ffast-math -w -DGAME_INCLUDE -DLINUX -DSTDC_HEADERS -I/usr/include
-LDFLAGS = -m32 -ldl -lm -shared
+LDFLAGS = -m32 -lm -shared
 
 OUTFILES = g_main.o zb_spawn.o zb_vote.o zb_ban.o zb_cmd.o zb_flood.o zb_init.o zb_log.o zb_lrcon.o zb_msgqueue.o zb_util.o zb_zbot.o zb_zbotcheck.o regex.o zb_disable.o zb_checkvar.o md4.o
 
