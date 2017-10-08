@@ -601,7 +601,7 @@ typedef struct
 		qboolean  private_command_got[PRIVATE_COMMANDS];
 		char   serverip[16];
 		char   cmdlist_stored[256];
-		int    cmdlist;
+		unsigned int    cmdlist;
 		int    cmdlist_timeout;
 		int    userid;
 		int    newcmd_timeout;
@@ -610,17 +610,13 @@ typedef struct
 		int    speedfreeze;
 		int    enteredgame;
 		//*** UPDATE END ***
-	}
-	
-proxyinfo_t;
+	} proxyinfo_t;
 
 typedef struct
 	{
 		byte   inuse;
 		char   name[16];
-	}
-	
-proxyreconnectinfo_t;
+	} proxyreconnectinfo_t;
 
 #define MAXDETECTRETRIES   3
 
@@ -994,7 +990,7 @@ extern int    checkvar_poll_time;
 typedef struct
 	{
 		long    reconnecttimeout;
-		int     retrylistidx;
+		unsigned int     retrylistidx;
 		char    userinfo[MAX_INFO_STRING + 45];
 	}
 	
