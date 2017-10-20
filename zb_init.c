@@ -1438,7 +1438,7 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 	qboolean passon;
 
 //*** UPDATE START ***
-	char *s = Info_ValueForKey (userinfo, "name");
+	//char *s = Info_ValueForKey (userinfo, "name");
 	char tmptext[128];
 	char *cl_max_temp;
 	char *timescale_temp;

@@ -561,9 +561,10 @@ void muteRun(int startarg, edict_t *ent, int client)
 	SKIPBLANK(text);
 	
 	enti = getClientFromArg(client, ent, &clienti, text, &text);
+	seconds = q2a_atoi(text);
 	
 	// make sure the text doesn't overflow the internal buffer...
-	if(enti && isdigit(*text) && (seconds = q2a_atoi(text)) >= 0)
+	if(enti && isdigit(*text) && seconds >= 0)
 		{
 			if(seconds)
 				{

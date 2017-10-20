@@ -1,9 +1,19 @@
 # q2admin.so linux makefile
 
+# This builds in the native mode of the current OS by default.
+
+# Note that you might need to install the 32-bit libc package
+# if it isn't already installed on your platform.
+# Examples:
+# sudo apt-get install ia32-libs
+# sudo apt-get install libc6-dev-i386
+# On Ubuntu 16.x use sudo apt install libc6-dev-i386
+
 #this nice line comes from the linux kernel makefile
 ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/)
 
-#ARCH=i386
+# On 64-bit OS use the command: setarch i386 make all
+# to obtain the 32-bit binary DLL on 64-bit Linux.
 
 CC = gcc -std=gnu99
 

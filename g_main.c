@@ -82,7 +82,7 @@ void ShutdownGame (void)
 	if(!dllloaded) return;
 
 //*** UPDATE START ***
-	if (whois_active)
+	if (whois_details)
 	{
 		whois_write_file();
 		gi.TagFree (whois_details);
