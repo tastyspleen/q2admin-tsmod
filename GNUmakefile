@@ -34,7 +34,7 @@ game$(ARCH).so: $(OUTFILES)
 	$(CC) $(CFLAGS) $(OUTFILES) $(LDFLAGS) -o game$(ARCH).so
 	ldd -r $@
 
-zip: q2admin.so
+zip: game$(ARCH).so
 	strip game$(ARCH).so
 	zip -9 q2admin-game$(ARCH).zip game$(ARCH).so
 
