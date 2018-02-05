@@ -285,7 +285,7 @@ char *processstring(char *output, char *input, int max, char end)
 		{
 			if( *input == '\\')
 				{
-					*input++;
+					input++;
 					
 					if((*input == 'n') || (*input == 'N'))
 					{
@@ -354,7 +354,7 @@ char *processstring(char *output, char *input, int max, char end)
 				}
 		}
 		
-	*output= 0x0;
+	*output = 0x0;
 	
 	return input;
 }
