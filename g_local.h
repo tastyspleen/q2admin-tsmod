@@ -775,7 +775,7 @@ enum zb_logtypesenum
 #define MAXSTARTTRY    500
 
 #define getEntOffset(ent)  (((char *)ent - (char *)globals.edicts) / globals.edict_size)
-#define getEnt(entnum)   (edict_t *)((char *)globals.edicts + (globals.edict_size * entnum))
+#define getEnt(entnum)   (edict_t *)((char *)globals.edicts + (globals.edict_size * (entnum)))
 
 // where the command can't be run?
 #define CMDWHERE_CFGFILE  0x01
