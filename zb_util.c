@@ -36,48 +36,19 @@ void stuffcmd(edict_t *e, char *s)
 	gi.unicast (e, true);
 }
 
-
-int Q_stricmp (char *string1, char *string2)
+// case independent string compare (strcasecmp)
+// if s1 is contained within s2 then return 0, they are "equal".
+// else return the lexicographical difference between them.
+int	Q_stricmp (const char *s1, const char *s2)
 {
-	while(*string1 && *string2)
-		{
-			char s1c = tolower(*string1);
-			char s2c = tolower(*string2);
-			if(s1c != s2c)
-				{
-					if(s1c < s2c)
-						{
-							return -1;
-						}
-					else
-						{
-							return 1;
-						}
-				}
-				
-			string1++;
-			string2++;
-		}
-		
-	if(*string2)
-		{
-			return -1;
-		}
-		
-	if(*string1)
-		{
-			return 1;
-		}
-		
-	return 0;
-	
-	/*
-	#if defined(WIN32)
-	return q2a_stricmp (s1, s2);
-	#else
-	return q2a_strcasecmp (s1, s2);
-	#endif
-	*/
+	const unsigned char
+		*uc1 = (const unsigned char *)s1,
+		*uc2 = (const unsigned char *)s2;
+
+	while (tolower(*uc1) == tolower(*uc2++))
+		if (*uc1++ == '\0')
+			return (0);
+	return (tolower(*uc1) - tolower(*--uc2));
 }
 
 

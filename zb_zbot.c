@@ -2108,7 +2108,7 @@ void whois_write_file(void)
 		strcpy(temp,whois_details[i].ip);
 		temp_len = strlen(temp);
 
-		//convert spaces to ÿ
+		//convert spaces to ÿ (\0xff)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')

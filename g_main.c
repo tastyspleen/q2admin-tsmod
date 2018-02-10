@@ -104,6 +104,7 @@ void ShutdownGame (void)
 		{
 			STOPPERFORMANCE(2, "mod->ShutdownGame", 0, NULL);
 		}
+	gi.dprintf ("==== Shutdown (Q2Admin) ====\n");
 		
 #ifdef __GNUC__
 	dlclose(hdll);

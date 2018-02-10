@@ -36,6 +36,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #pragma warning(disable : 4018)     // signed/unsigned mismatch
 #pragma warning(disable : 4305)  // truncation from const double to float
+#if _MSC_VER > 1500
+#pragma warning(disable : 4996)	// disable warnings from VS 2010 about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#endif
 
 //r1ch
 #define	snprintf _snprintf
@@ -231,13 +234,6 @@ char *COM_Parse (char **data_p, char **command_p);
 void Com_sprintf (char *dest, int size, char *fmt, ...);
 
 void Com_PageInMemory (byte *buffer, int size);
-
-//=============================================
-
-// portable case insensitive compare
-int Q_stricmp (char *s1, char *s2);
-int Q_strcasecmp (char *s1, char *s2);
-int Q_strncasecmp (char *s1, char *s2, int n);
 
 //=============================================
 
@@ -920,6 +916,11 @@ ELEMENTS COMMUNICATED ACROSS THE NET
 #define CS_PLAYERSKINS  (CS_ITEMS+MAX_ITEMS)
 #define MAX_CONFIGSTRINGS (CS_PLAYERSKINS+MAX_CLIENTS)
 
+//QW// The 2080 magic number comes from q_shared.h of the original game.
+// No game mod can go over this 2080 limit.
+#if (MAX_CONFIGSTRINGS > 2080)
+	#error MAX_CONFIGSTRINGS > 2080
+#endif
 
 //==============================================
 

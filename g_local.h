@@ -1118,7 +1118,7 @@ edict_t  *getClientFromArg(int client, edict_t *ent, int *cleintret, char *cp, c
 
 // zb_util.c
 void  stuffcmd(edict_t *e, char *s);
-int   Q_stricmp (char *s1, char *s2);
+int   Q_stricmp (const char *s1, const char *s2);
 char  *Info_ValueForKey (char *s, char *key);
 void  copyDllInfo(void);
 int   breakLine(char *buffer, char *buff1, char *buff2, int buff2size);
@@ -1280,14 +1280,12 @@ extern int  max_pmod_noreply;
 extern int  msec_int;
 
 typedef struct
-	{
-		char  name[256];
-		char  password[256];
-		char  ip[256];
-		int   level;
-	}
-	
-admin_type;
+{
+	char  name[256];
+	char  password[256];
+	char  ip[256];
+	int   level;
+} admin_type;
 
 #define Q2ADMINVERSION   "1.17.44-tsmod-2"
 #define DEFAULTQ2AVER   "1.0"
