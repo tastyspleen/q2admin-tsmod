@@ -36,7 +36,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "game.h"
 
 #include <ctype.h>
+
+/* Use our local regex.c and .h on Windows but
+   Posix library regex on *nix systems.
+   This makes it 64-bit clean on GNU Linux */
+#ifdef _WIN32
 #include "regex.h"
+#else
+#include <regex.h>
+#endif
 
 //*** UPDATE START ***
 #define PRIVATE_COMMANDS  8
