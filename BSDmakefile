@@ -3,7 +3,7 @@
 # -I/usr/i486-linuxlibc1/include
 
 #this nice line comes from the linux kernel makefile
-ARCH != uname -m | sed -e s/i.86/i386/ -e s/amd64/x86_64/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/)
+ARCH != uname -m | sed -e s/i.86/i386/ -e s/amd64/x86_64/ -e s/sun4u/sparc64/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/
 
 CC      = gcc
 CFLAGS  = -O2 -fPIC -DARCH="$(ARCH)"
