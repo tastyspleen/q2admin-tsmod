@@ -48,6 +48,8 @@ void *hdll = NULL;
 	#define DLLNAME "gamei386.real.so"
 #elif defined __x86_64__
 	#define DLLNAME "gamex86_64.real.so"
+#elif defined __arm__
+	#define DLLNAME "gamearm.real.so"
 #else
 	#error Unknown architecture
 #endif
