@@ -2067,7 +2067,7 @@ void displayNextBan(edict_t *ent, int client, long bannum)
 				
 			if(!findentry->exclude && findentry->maxnumberofconnects)
 				{
-					sprintf(buffer + q2a_strlen(buffer), " MAX %d", findentry->maxnumberofconnects);
+					sprintf(buffer + q2a_strlen(buffer), " MAX %ld", findentry->maxnumberofconnects);
 				}
 				
 			if(!findentry->exclude && findentry->floodinfo.chatFloodProtect)

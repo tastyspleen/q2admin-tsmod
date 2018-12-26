@@ -32,7 +32,7 @@ These notices must be retained in any copies of any part of this documentation a
 typedef struct {
 	UINT4 state[4];				/* state (ABCD) */
 	UINT4 count[2];				/* number of bits, modulo 2^64 (lsb first) */
-	unsigned char buffer[64]; 			/* input buffer */
+	unsigned char buffer[64];	/* input buffer */
 } MD4_CTX;
 
 void MD4Init (MD4_CTX *);

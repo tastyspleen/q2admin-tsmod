@@ -1333,7 +1333,7 @@ void dprintf_internal (char *fmt, ...)
 						}
 				}
 		}
-	else if(proxyinfo[clienti].inuse && !q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd))
+	else if (proxyinfo[clienti].inuse && (!q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd)))
 		{
 			clienti = -1;
 		}

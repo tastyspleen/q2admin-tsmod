@@ -81,7 +81,7 @@ void ShutdownGame (void)
 	INITPERFORMANCE(1);
 	INITPERFORMANCE(2);
 	
-	if(!dllloaded) return;
+	if (!dllloaded) return;
 
 //*** UPDATE START ***
 	if (whois_details)
@@ -91,7 +91,7 @@ void ShutdownGame (void)
 	}
 //*** UPDATE END ***
 
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			STARTPERFORMANCE(1);
 			logEvent(LT_SERVEREND, 0, NULL, NULL, 0, 0.0);
@@ -102,7 +102,7 @@ void ShutdownGame (void)
 	lrcon_reset_rcon_password(0, 0, 0);
 	dllglobals->Shutdown();
 	
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			STOPPERFORMANCE(2, "mod->ShutdownGame", 0, NULL);
 		}
@@ -116,7 +116,7 @@ void ShutdownGame (void)
 	
 	dllloaded = FALSE;
 	
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			STOPPERFORMANCE(1, "q2admin->ShutdownGame", 0, NULL);
 		}
@@ -177,7 +177,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 	gamedir = gi.cvar ("game", "baseq2", 0);
 	q2a_strcpy(moddir, gamedir->string);
 	
-	if(moddir[0] == 0)
+	if (moddir[0] == 0)
 		{
 			q2a_strcpy(moddir, "baseq2");
 		}
@@ -213,7 +213,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 	
 	readCfgFiles();
 	
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			loadLogList();
 		}
@@ -233,7 +233,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 	sprintf(dllname, "%s/%s", moddir, DLLNAME);
 	hdll = dlopen(dllname, loadtype);
 #elif defined(WIN32)
-	if(quake2dirsupport)
+	if (quake2dirsupport)
 		{
 			sprintf(dllname, "%s/%s", moddir, DLLNAME);
 		}
@@ -245,7 +245,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 	hdll = LoadLibrary(dllname);
 #endif
 	
-	if(hdll == NULL)
+	if (hdll == NULL)
 		{
 			// try the baseq2 directory...
 			sprintf(dllname, "baseq2/%s", DLLNAME);
@@ -259,7 +259,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 #ifdef __GNUC__
 			sprintf(dllname, "%s/%s", moddir, DLLNAME);
 #elif defined(WIN32)
-			if(quake2dirsupport)
+			if (quake2dirsupport)
 				{
 					sprintf(dllname, "%s/%s", moddir, DLLNAME);
 				}
@@ -269,7 +269,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 				}
 #endif
 			
-			if(hdll == NULL)
+			if (hdll == NULL)
 				{
 					gi.dprintf ("Unable to load DLL %s.\n", dllname);
 					return &globals;
@@ -286,7 +286,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 	getapi = (GAMEAPI *)GetProcAddress (hdll, "GetGameAPI");
 #endif
 	
-	if(getapi == NULL)
+	if (getapi == NULL)
 		{
 #ifdef __GNUC__
 			dlclose(hdll);
@@ -303,7 +303,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 	copyDllInfo();
 	import->cprintf = gi.cprintf;
 	
-	if(q2adminrunmode)
+	if (q2adminrunmode)
 		{
 			logEvent(LT_SERVERSTART, 0, NULL, NULL, 0, 0.0);
 		}

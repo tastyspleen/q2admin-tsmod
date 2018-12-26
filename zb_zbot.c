@@ -1515,7 +1515,10 @@ void Read_Admin_cfg(void)
 	i = 0;
 	while ((!feof(f)) && (i<MAX_ADMINS))
 	{
-		fscanf(f,"%s %s %d",&admin_pass[i].name,&admin_pass[i].password,&admin_pass[i].level);
+		fscanf(f,"%s %s %d",
+			(char *) &admin_pass[i].name,
+			(char *) &admin_pass[i].password,
+			(int *)  &admin_pass[i].level);
 		i++;
 	}
 	if (!admin_pass[i].level)
@@ -1541,7 +1544,10 @@ file2:;
 	i = 0;
 	while ((!feof(f)) && (i<MAX_ADMINS))
 	{
-		fscanf(f,"%s %s %d",&q2a_bypass_pass[i].name,&q2a_bypass_pass[i].password,&q2a_bypass_pass[i].level);
+		fscanf(f,"%s %s %d",
+			(char *) &q2a_bypass_pass[i].name,
+			(char *) &q2a_bypass_pass[i].password,
+			(int *)  &q2a_bypass_pass[i].level);
 		i++;
 	}
 	if (!q2a_bypass_pass[i].level)
@@ -2171,18 +2177,18 @@ void whois_read_file(void)
 	{
 		fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
 			&whois_details[WHOIS_COUNT].id,
-			&whois_details[WHOIS_COUNT].ip,
-			&whois_details[WHOIS_COUNT].seen,
-			&whois_details[WHOIS_COUNT].dyn[0].name,
-			&whois_details[WHOIS_COUNT].dyn[1].name,
-			&whois_details[WHOIS_COUNT].dyn[2].name,
-			&whois_details[WHOIS_COUNT].dyn[3].name,
-			&whois_details[WHOIS_COUNT].dyn[4].name,
-			&whois_details[WHOIS_COUNT].dyn[5].name,
-			&whois_details[WHOIS_COUNT].dyn[6].name,
-			&whois_details[WHOIS_COUNT].dyn[7].name,
-			&whois_details[WHOIS_COUNT].dyn[8].name,
-			&whois_details[WHOIS_COUNT].dyn[9].name);		
+			(char *) &whois_details[WHOIS_COUNT].ip,
+			(char *) &whois_details[WHOIS_COUNT].seen,
+			(char *) &whois_details[WHOIS_COUNT].dyn[0].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[1].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[2].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[3].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[4].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[5].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[6].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[7].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[8].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[9].name);
 		
 		//convert all ÿ back to spaces
 		temp_len = strlen(whois_details[WHOIS_COUNT].ip);

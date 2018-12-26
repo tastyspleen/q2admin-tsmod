@@ -155,9 +155,6 @@ extern vec3_t vec3_origin;
 
 #define IS_NAN(x) (((*(int *)&x)&nanmask)==nanmask)
 
-// microsoft's fabs seems to be ungodly slow...
-//float Q_fabs (float f);
-//#define fabs(f) Q_fabs(f)
 #if !defined C_ONLY
 extern long Q_ftol( float f );
 #else
@@ -972,7 +969,7 @@ entity_state_t;
 
 // player_state_t is the information needed in addition to pmove_state_t
 // to rendered a view.  There will only be 10 player_state_t sent each second,
-// but the number of pmove_state_t changes will be reletive to client
+// but the number of pmove_state_t changes will be relative to client
 // frame rates
 typedef struct
 	{
@@ -997,7 +994,4 @@ typedef struct
 		int   rdflags;  // refdef flags
 		
 		short  stats[MAX_STATS];  // fast status bar updates
-	}
-player_state_t;
-
-
+	} player_state_t;

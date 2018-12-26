@@ -218,7 +218,7 @@ typedef enum
 	MOVETYPE_NOCLIP,  // origin and angles change with no interaction
 	MOVETYPE_PUSH,   // no clip to world, push on box contact
 	MOVETYPE_STOP,   // no clip to world, stops on box contact
-    
+
 	MOVETYPE_WALK,   // gravity
 	MOVETYPE_STEP,   // gravity, special edge handling
 	MOVETYPE_FLY,
@@ -233,28 +233,28 @@ movetype_t;
 // it should be initialized at dll load time, and read/written to
 // the server.ssv file for savegames
 typedef struct
-	{
-		char  helpmessage1[512];
-		char  helpmessage2[512];
-		int   helpchanged; // flash F1 icon if non 0, play sound
-		// and increment only if 1, 2, or 3
-		gclient_t *clients;  // [maxclients]
-		
-		// can't store spawnpoint in level, because
-		// it would get overwritten by the savegame restore
-		char  spawnpoint[512]; // needed for coop respawns
-		
-		// store latched cvars here that we want to get at often
-		int   maxclients;
-		int   maxentities;
-		
-		// cross level triggers
-		int   serverflags;
-		
-		// items
-		int   num_items;
-		
-		qboolean autosaved;
+{
+	char  helpmessage1[512];
+	char  helpmessage2[512];
+	int   helpchanged; // flash F1 icon if non 0, play sound
+	// and increment only if 1, 2, or 3
+	gclient_t *clients;  // [maxclients]
+
+	// can't store spawnpoint in level, because
+	// it would get overwritten by the savegame restore
+	char  spawnpoint[512]; // needed for coop respawns
+
+	// store latched cvars here that we want to get at often
+	int   maxclients;
+	int   maxentities;
+
+	// cross level triggers
+	int   serverflags;
+
+	// items
+	int   num_items;
+
+	qboolean autosaved;
 	}
 	
 game_locals_t;
@@ -262,45 +262,44 @@ game_locals_t;
 // this structure is cleared as each map is entered
 // it is read/written to the level.sav file for savegames
 typedef struct
-	{
-		int   framenum;
-		float  time;
-		
-		char  level_name[MAX_QPATH]; // the descriptive name (Outer Base, etc)
-		char  mapname[MAX_QPATH];  // the server name (base1, etc)
-		char  nextmap[MAX_QPATH];  // go here when fraglimit is hit
-		
-		// intermission state
-		float  intermissiontime;  // time the intermission was started
-		char  *changemap;
-		int   exitintermission;
-		vec3_t  intermission_origin;
-		vec3_t  intermission_angle;
-		
-		edict_t  *sight_client; // changed once each frame for coop games
-		
-		edict_t  *sight_entity;
-		int   sight_entity_framenum;
-		edict_t  *sound_entity;
-		int   sound_entity_framenum;
-		edict_t  *sound2_entity;
-		int   sound2_entity_framenum;
-		
-		int   pic_health;
-		
-		int   total_secrets;
-		int   found_secrets;
-		
-		int   total_goals;
-		int   found_goals;
-		
-		int   total_monsters;
-		int   killed_monsters;
-		
-		edict_t  *current_entity; // entity running from G_RunFrame
-		int   body_que;   // dead bodies
-		
-		int   power_cubes;  // ugly necessity for coop
+{
+	int   framenum;
+	float  time;
+
+	char  level_name[MAX_QPATH]; // the descriptive name (Outer Base, etc)
+	char  mapname[MAX_QPATH];  // the server name (base1, etc)
+	char  nextmap[MAX_QPATH];  // go here when fraglimit is hit
+
+	// intermission state
+	float  intermissiontime;  // time the intermission was started
+	char  *changemap;
+	int   exitintermission;
+	vec3_t  intermission_origin;
+	vec3_t  intermission_angle;
+
+	edict_t  *sight_client; // changed once each frame for coop games
+
+	edict_t  *sight_entity;
+	int   sight_entity_framenum;
+	edict_t  *sound_entity;
+	int   sound_entity_framenum;
+	edict_t  *sound2_entity;
+	int   sound2_entity_framenum;
+
+	int   pic_health;
+
+	int   total_secrets;
+	int   found_secrets;
+
+	int   total_goals;
+	int   found_goals;
+
+	int   total_monsters;
+	int   killed_monsters;
+
+	edict_t  *current_entity; // entity running from G_RunFrame
+	int   body_que;   // dead bodies
+	int   power_cubes;  // ugly necessity for coop
 	}
 	
 level_locals_t;
@@ -361,20 +360,20 @@ typedef struct
 field_t;
 
 // damage flags
-#define DAMAGE_RADIUS      0x00000001 // damage was indirect
-#define DAMAGE_NO_ARMOR      0x00000002 // armour does not protect from this damage
-#define DAMAGE_ENERGY      0x00000004 // damage is from an energy based weapon
-#define DAMAGE_NO_KNOCKBACK     0x00000008 // do not affect velocity, just view angles
-#define DAMAGE_BULLET      0x00000010  // damage is from a bullet (used for ricochets)
-#define DAMAGE_NO_PROTECTION    0x00000020  // armor, shields, invulnerability, and godmode have no effect
+#define DAMAGE_RADIUS			0x00000001 // damage was indirect
+#define DAMAGE_NO_ARMOR			0x00000002 // armour does not protect from this damage
+#define DAMAGE_ENERGY			0x00000004 // damage is from an energy based weapon
+#define DAMAGE_NO_KNOCKBACK		0x00000008 // do not affect velocity, just view angles
+#define DAMAGE_BULLET			0x00000010  // damage is from a bullet (used for ricochets)
+#define DAMAGE_NO_PROTECTION	0x00000020  // armor, shields, invulnerability, and godmode have no effect
 
-#define DEFAULT_BULLET_HSPREAD    300
-#define DEFAULT_BULLET_VSPREAD    500
-#define DEFAULT_SHOTGUN_HSPREAD    1000
-#define DEFAULT_SHOTGUN_VSPREAD    500
+#define DEFAULT_BULLET_HSPREAD	300
+#define DEFAULT_BULLET_VSPREAD	500
+#define DEFAULT_SHOTGUN_HSPREAD	1000
+#define DEFAULT_SHOTGUN_VSPREAD	500
 #define DEFAULT_DEATHMATCH_SHOTGUN_COUNT 12
-#define DEFAULT_SHOTGUN_COUNT    12
-#define DEFAULT_SSHOTGUN_COUNT    20
+#define DEFAULT_SHOTGUN_COUNT	12
+#define DEFAULT_SSHOTGUN_COUNT	20
 
 //============================================================================
 // client_t->anim_priority
@@ -388,63 +387,63 @@ field_t;
 // this structure is cleared on each PutClientInServer(),
 // except for 'client->pers'
 struct gclient_s
-	{
-		// known to server
-		player_state_t ps;    // communicated by server to clients
-		int     ping;
-	};
-	
+{
+	// known to server
+	player_state_t ps;    // communicated by server to clients
+	int     ping;
+};
+
 struct edict_s
-	{
-		entity_state_t  s;
-		struct gclient_s *client; // NULL if not a player
-		// the server expects the first part
-		// of gclient_s to be a player_state_t
-		// but the rest of it is opaque
-		qboolean inuse;
-		int   linkcount;
-		
-		// FIXME: move these fields to a server private sv_entity_t
-		link_t  area;    // linked to a division node or leaf
-		
-		int   num_clusters;  // if -1, use headnode instead
-		int   clusternums[MAX_ENT_CLUSTERS];
-		int   headnode;   // unused if num_clusters != -1
-		int   areanum, areanum2;
-		
-		//================================
-		
-		int   svflags;
-		vec3_t  mins, maxs;
-		vec3_t  absmin, absmax, size;
-		solid_t  solid;
-		int   clipmask;
-		edict_t  *owner;
-		
-		// DO NOT MODIFY ANYTHING ABOVE THIS, THE SERVER
-		// EXPECTS THE FIELDS IN THAT ORDER!
-		//================================
-	};
-	
+{
+	entity_state_t  s;
+	struct gclient_s *client; // NULL if not a player
+	// the server expects the first part
+	// of gclient_s to be a player_state_t
+	// but the rest of it is opaque
+	qboolean inuse;
+	int   linkcount;
+
+	// FIXME: move these fields to a server private sv_entity_t
+	link_t  area;    // linked to a division node or leaf
+
+	int   num_clusters;  // if -1, use headnode instead
+	int   clusternums[MAX_ENT_CLUSTERS];
+	int   headnode;   // unused if num_clusters != -1
+	int   areanum, areanum2;
+
+	//================================
+
+	int   svflags;
+	vec3_t  mins, maxs;
+	vec3_t  absmin, absmax, size;
+	solid_t  solid;
+	int   clipmask;
+	edict_t  *owner;
+
+	// DO NOT MODIFY ANYTHING ABOVE THIS, THE SERVER
+	// EXPECTS THE FIELDS IN THAT ORDER!
+	//================================
+};
+
 // zbot detector global stuff
 struct chatflood_s
-	{
-		qboolean      chatFloodProtect;
-		int           chatFloodProtectNum;
-		int           chatFloodProtectSec;
-		int           chatFloodProtectSilence;
-	};
-	
+{
+	qboolean      chatFloodProtect;
+	int           chatFloodProtectNum;
+	int           chatFloodProtectSec;
+	int           chatFloodProtectSilence;
+};
+
 #define MAXIMPULSESTOTEST 256
-	
+
 #define RANDCHAR()      (random() < 0.3) ? '0' + (int)(9.9 * random()) : 'A' + (int)(26.9 * random())
-	
+
 #define BANLISTFILE      "q2adminban.txt"
 #define CFGFILE       "q2admin.txt"
-	
+
 #define DEFAULTVOTECOMMAND    "vote"
 #define DEFAULTRECONNECTMSG    "Please wait to be reconnected to the server - this is normal for this level of bot protection.\nThe fastest way to do this is not to change any client info e.g. your name or skin."
-	
+
 #define DEFAULTUSERDISPLAY    "%s is using a client side proxy."
 #define DEFAULTTSDISPLAY    "%s is using a speed cheat."
 #define DEFAULTHACKDISPLAY    "%s is using a modified client."
@@ -457,26 +456,26 @@ struct chatflood_s
 #define DEFAULTBANMSG     "You are banned from this server!"
 #define DEFAULTCHABANMSG    "Message banned."
 #define DEFAULTLOCKOUTMSG    "This server is currently locked."
-	
+
 typedef struct banstruct
-	{
-		regex_t    *r;
-		qboolean   exclude;
-		byte    type;
-		byte    loadType;
-		byte    ip[4];
-		byte    subnetmask;
-		char    nick[80];
-		char    password[80];
-		char    *msg;
-		long    maxnumberofconnects;
-		long    numberofconnects;
-		long    bannum;
-		float    timeout;
-		struct chatflood_s floodinfo;
-		struct banstruct *next;
-	}
-	
+{
+	regex_t    *r;
+	qboolean   exclude;
+	byte    type;
+	byte    loadType;
+	byte    ip[4];
+	byte    subnetmask;
+	char    nick[80];
+	char    password[80];
+	char    *msg;
+	long    maxnumberofconnects;
+	long    numberofconnects;
+	long    bannum;
+	float    timeout;
+	struct chatflood_s floodinfo;
+	struct banstruct *next;
+}
+
 baninfo_t;
 
 #define NOTUSED   0
@@ -490,141 +489,137 @@ baninfo_t;
 #define LT_TEMP   2
 
 typedef struct chatbanstruct
-	{
-		regex_t     *r;
-		byte     type;
-		byte     loadType;
-		long     bannum;
-		char     chat[256];
-		char     *msg;
-		struct chatbanstruct *next;
-	}
-	
-chatbaninfo_t;
+{
+	regex_t     *r;
+	byte     type;
+	byte     loadType;
+	long     bannum;
+	char     chat[256];
+	char     *msg;
+	struct chatbanstruct *next;
+} chatbaninfo_t;
 
 #define CNOTUSED  0
 #define CHATLIKE  1
 #define CHATRE   2
 
-typedef struct
-	{
-		byte     command;
-		float     timeout;
-		unsigned long   data;
-		char     *str;
-	}
-	
-CMDQUEUE;
+typedef struct cmdqueue_s
+{
+	byte     command;
+	float     timeout;
+	unsigned long   data;
+	char     *str;
+} CMDQUEUE;
 
 //*** UPDATE START ***
-typedef struct
-	{
-		char   action[256];
-		int    start;
-	}
-	
-timers_t;
+typedef struct timers_s
+{
+	char   action[256];
+	int    start;
+} timers_t;
+
 //*** UPDATE END ***
 
-typedef struct
-	{
-		qboolean  admin;
-		unsigned char retries;
-		unsigned char rbotretries;
-		CMDQUEUE  cmdQueue[ALLOWED_MAXCMDS]; // command queue - UPDATE
-		int    maxCmds;
-		unsigned long clientcommand; // internal proxy commands
-		char   teststr[9];
-		int    charindex;
-		//long   logfilereadpos;
-		int    logfilenum;
-		long   logfilecheckpos;
-		char   buffer[256]; // log buffer
-		char   ipaddress[40];
-		byte   ipaddressBinary[4];
-		byte   impulse;
-		byte   inuse;
-		char   name[16];
-		char   skin[40];  // skin/model information.
-		int    rate;
-		int    maxfps;
-		int    cl_pitchspeed;
-		float   cl_anglespeedkey;
-		baninfo_t  *baninfo;
-		long   namechangetimeout;
-		int    namechangecount;
-		long   skinchangetimeout;
-		int    skinchangecount;
-		long   chattimeout;
-		int    chatcount;
-		char   userinfo[MAX_INFO_STRING + 45];
-		FILE   *stuffFile;
-		int    impulsesgenerated;
-		char   lastcmd[8192];
-		struct   chatflood_s floodinfo;
-		short   zbc_angles[2][2];
-		int    zbc_tog;
-		int    zbc_jitter;
-		float   zbc_jitter_time;
-		float   zbc_jitter_last;
-		int    votescast;
-		int    votetimeout;
-		int    msg;
-		
-		// used to test the alias (and connect) command with random strings
-		char   hack_teststring1[RANDOM_STRING_LENGTH+1];
-		char   hack_teststring2[RANDOM_STRING_LENGTH+1];
-		char   hack_teststring3[RANDOM_STRING_LENGTH+1];
-		char   hack_timescale[RANDOM_STRING_LENGTH+1];
-		int    hacked_disconnect;
-		byte   hacked_disconnect_ip[4];
-		int    checked_hacked_exe;
-		
-		// used to test the variables check list
-		char   hack_checkvar[RANDOM_STRING_LENGTH+1];
-		int    checkvar_idx;
-		
-		//*** UPDATE START ***
-		char   gl_driver[256];
-		int    gl_driver_changes;
-		int    pmodver;
-		int    pmod;
-		int    pmod_noreply_count;
-		int    pcmd_noreply_count;
-		int    pver;
-		int    q2a_admin;
-		int    q2a_bypass;
-		int    msec_count;
-		int    msec_last;
-		int    frames_count;
-		int    msec_bad;
-		float   msec_start;
-		int    done_server_and_blocklist;
-		int    userinfo_changed_count;
-		int    userinfo_changed_start;
-		int    private_command;
-		int    timescale;
-		qboolean  show_fps;
-		qboolean  vid_restart;
-		qboolean  private_command_got[PRIVATE_COMMANDS];
-		char   serverip[16];
-		char   cmdlist_stored[256];
-		unsigned int    cmdlist;
-		int    cmdlist_timeout;
-		int    userid;
-		int    newcmd_timeout;
-		timers_t  timers[TIMERS_MAX];
-		int    blocklist;
-		int    speedfreeze;
-		int    enteredgame;
-		//*** UPDATE END ***
-	} proxyinfo_t;
+typedef struct proxyinfo_s
+{
+	qboolean  admin;
+	unsigned char retries;
+	unsigned char rbotretries;
+	CMDQUEUE  cmdQueue[ALLOWED_MAXCMDS]; // command queue - UPDATE
+	int    maxCmds;
+	unsigned long clientcommand; // internal proxy commands
+	char   teststr[9];
+	int    charindex;
+	//long   logfilereadpos;
+	int    logfilenum;
+	long   logfilecheckpos;
+	char   buffer[256]; // log buffer
+	char   ipaddress[40];
+	byte   ipaddressBinary[4];
+	byte   impulse;
+	byte   inuse;
+	char   name[16];
+	char   skin[40];  // skin/model information.
+	int    rate;
+	int    maxfps;
+	int    cl_pitchspeed;
+	float   cl_anglespeedkey;
+	baninfo_t  *baninfo;
+	long   namechangetimeout;
+	int    namechangecount;
+	long   skinchangetimeout;
+	int    skinchangecount;
+	long   chattimeout;
+	int    chatcount;
+	char   userinfo[MAX_INFO_STRING + 45];
+	FILE   *stuffFile;
+	int    impulsesgenerated;
+	char   lastcmd[8192];
+	struct   chatflood_s floodinfo;
+	short   zbc_angles[2][2];
+	int    zbc_tog;
+	int    zbc_jitter;
+	float   zbc_jitter_time;
+	float   zbc_jitter_last;
+	int    votescast;
+	int    votetimeout;
+	int    msg;
+
+	// used to test the alias (and connect) command with random strings
+	char   hack_teststring1[RANDOM_STRING_LENGTH+1];
+	char   hack_teststring2[RANDOM_STRING_LENGTH+1];
+	char   hack_teststring3[RANDOM_STRING_LENGTH+1];
+	char   hack_timescale[RANDOM_STRING_LENGTH+1];
+	int    hacked_disconnect;
+	byte   hacked_disconnect_ip[4];
+	int    checked_hacked_exe;
+
+	// used to test the variables check list
+	char   hack_checkvar[RANDOM_STRING_LENGTH+1];
+	int    checkvar_idx;
+
+	//*** UPDATE START ***
+	char   gl_driver[256];
+	int    gl_driver_changes;
+	int    pmodver;
+	int    pmod;
+	int    pmod_noreply_count;
+	int    pcmd_noreply_count;
+	int    pver;
+	int    q2a_admin;
+	int    q2a_bypass;
+	int    msec_count;
+	int    msec_last;
+	int    frames_count;
+	int    msec_bad;
+	float   msec_start;
+	int    done_server_and_blocklist;
+	int    userinfo_changed_count;
+	int    userinfo_changed_start;
+	int    private_command;
+	int    timescale;
+	qboolean  show_fps;
+	qboolean  vid_restart;
+	qboolean  private_command_got[PRIVATE_COMMANDS];
+	char   serverip[16];
+	char   cmdlist_stored[256];
+	unsigned int    cmdlist;
+	int    cmdlist_timeout;
+	int    userid;
+	int    newcmd_timeout;
+	timers_t  timers[TIMERS_MAX];
+	int    blocklist;
+	int    speedfreeze;
+	int    enteredgame;
+	//*** UPDATE END ***
+
+} proxyinfo_t;
 
 typedef struct
-	{
-		byte   inuse;
-		char   name[16];
-	} proxyreconnectinfo_t;
+{
+	byte   inuse;
+	char   name[16];
+} proxyreconnectinfo_t;
 
 #define MAXDETECTRETRIES   3
 
@@ -800,16 +795,14 @@ typedef void     CMDRUNFUNC(int startarg, edict_t *ent, int client);
 typedef void     CMDINITFUNC(char *arg);
 
 typedef struct
-	{
-		char    *cmdname;
-		byte    cmdwhere;
-		byte    cmdtype;
-		void    *datapoint;
-		CMDRUNFUNC   *runfunc;
-		CMDINITFUNC   *initfunc;
-	}
-	
-zbotcmd_t;
+{
+	char    *cmdname;
+	byte    cmdwhere;
+	byte    cmdtype;
+	void    *datapoint;
+	CMDRUNFUNC   *runfunc;
+	CMDINITFUNC   *initfunc;
+} zbotcmd_t;
 
 extern game_import_t gi;
 extern game_export_t globals;
@@ -996,21 +989,17 @@ extern int    entity_classname_offset;
 extern int    checkvar_poll_time;
 
 typedef struct
-	{
-		long    reconnecttimeout;
+{
+	long    reconnecttimeout;
 		unsigned int     retrylistidx;
-		char    userinfo[MAX_INFO_STRING + 45];
-	}
-	
-reconnect_info;
+	char    userinfo[MAX_INFO_STRING + 45];
+} reconnect_info;
 
 typedef struct
-	{
-		long    retry;
-		char    ip[MAX_INFO_STRING + 45];
-	}
-	
-retrylist_info;
+{
+	long    retry;
+	char    ip[MAX_INFO_STRING + 45];
+} retrylist_info;
 
 extern reconnect_info* reconnectlist;
 extern retrylist_info* retrylist;
@@ -1033,6 +1022,8 @@ str++; \
 #define BOTDETECT_CHAR2   'U'
 
 #define itoa(x, y, z)   itoaNotAUnixFunction(z, y, z)
+
+#pragma warning (disable: 4701)
 
 #define INITPERFORMANCE(instance) unsigned long performancetimer##instance = 0
 #define INITPERFORMANCE_2(instance) \
@@ -1338,32 +1329,26 @@ extern int   USERINFOCHANGE_TIME;
 extern int   USERINFOCHANGE_COUNT;
 extern int   gl_driver_max_changes;
 
-typedef struct
-	{
-		char  command[256];
-	}
-	
-priv_t;
+typedef struct priv_s
+{
+	char  command[256];
+} priv_t;
 
 extern   priv_t private_commands[PRIVATE_COMMANDS];
 void   stuff_private_commands(int client,edict_t *ent);
 
-typedef struct
-	{
-		char  name[16];
-	}
-	
-user_dyn;
+typedef struct user_dyn_s
+{
+	char  name[16];
+} user_dyn;
 
-typedef struct
-	{
-		int   id;
-		char  ip[22];
-		char  seen[32];
-		user_dyn dyn[10];
-	}
-	
-user_details;
+typedef struct user_details_s
+{
+	int   id;
+	char  ip[22];
+	char  seen[32];
+	user_dyn dyn[10];
+} user_details;
 
 extern int   WHOIS_COUNT;
 extern int   whois_active;
@@ -1384,12 +1369,10 @@ void    timer_action(int client,edict_t *ent);
 void    timer_stop(int client,edict_t *ent);
 void    timer_start(int client,edict_t *ent);
 
-typedef struct
-	{
-		char   *model_name;
-	}
-	
-block_model;
+typedef struct block_model_s
+{
+	char   *model_name;
+} block_model;
 
 extern block_model block_models[MAX_BLOCK_MODELS];
 //*** UPDATE END ***

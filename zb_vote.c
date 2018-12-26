@@ -761,7 +761,8 @@ void checkOnVoting(void)
 					if(percent >= ((double)votepasspercent / 100))
 						{
 							q2a_strcpy(printstr, "Vote PASSED!");
-							q2a_strcpy(cmdpassedvote, cmdvote); //UPDATE
+				q2a_strcpy(cmdpassedvote, "game");		//r1q2 won't do "map", we insert "game" to get "gamemap"
+				q2a_strcat(cmdpassedvote, cmdvote);
 							addCmdQueue(-1, QCMD_RUNVOTECMD, 5, 0, 0);
 						}
 					else
