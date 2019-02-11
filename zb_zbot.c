@@ -706,7 +706,7 @@ void G_RunFrame(void)
 									maxReconnectList++;
 								}
 
-							q2a_strcpy(buffer, ("%s\n", defaultreconnectmessage));
+							q2a_memcpy(buffer, defaultreconnectmessage, q2a_strlen(defaultreconnectmessage) + 1);
 							gi.cprintf (ent, PRINT_HIGH, buffer);
 
 							generateRandomString(ReconnectString, 5);
@@ -845,7 +845,7 @@ void G_RunFrame(void)
 						{
 							unsigned int i;
 
-							q2a_strcpy(buffer, ("%s\n", zbotuserdisplay));
+							q2a_memcpy(buffer, zbotuserdisplay, q2a_strlen(zbotuserdisplay) + 1);
 
 							for(i = 0; i < numofdisplays; i++)
 								{
@@ -944,7 +944,7 @@ void G_RunFrame(void)
 						{
 							unsigned int i;
 
-							q2a_strcpy(buffer, ("%s\n", zbotuserdisplay));
+							q2a_memcpy(buffer, zbotuserdisplay, q2a_strlen(zbotuserdisplay) + 1);
 
 							for(i = 0; i < numofdisplays; i++)
 								{
