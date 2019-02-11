@@ -14,7 +14,7 @@ LDFLAGS = -shared -lm
 OUTFILES = g_main.o zb_spawn.o zb_vote.o zb_ban.o zb_cmd.o \
 	zb_flood.o zb_init.o zb_log.o zb_lrcon.o zb_msgqueue.o \
 	zb_util.o zb_zbot.o zb_zbotcheck.o zb_disable.o \
-	zb_checkvar.o md4.o
+	zb_checkvar.o
 
 game$(ARCH).so: $(OUTFILES)
 	$(CC) $(OUTFILES) $(CFLAGS) $(LDFLAGS) -o $@

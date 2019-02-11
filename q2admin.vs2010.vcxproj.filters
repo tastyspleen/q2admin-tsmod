@@ -25,9 +25,6 @@
     <ClCompile Include="g_main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="md4.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="regex.c">
       <Filter>Source Files</Filter>
     </ClCompile>
