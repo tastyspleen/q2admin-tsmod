@@ -2114,11 +2114,11 @@ void whois_write_file(void)
 		strcpy(temp,whois_details[i].ip);
 		temp_len = strlen(temp);
 
-		//convert spaces to ÿ (\0xff)
+		//convert spaces to 0xff (\0xff)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 'ÿ';
+				temp[j] = '0xff';
 		}
 		fprintf(f,"%i %s ",whois_details[i].id,temp);
 
@@ -2128,7 +2128,7 @@ void whois_write_file(void)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 'ÿ';
+				temp[j] = '0xff';
 		}
 		fprintf(f,"%s ",temp);
 
@@ -2142,13 +2142,13 @@ void whois_write_file(void)
 				for (k=0;k<temp_len;k++)
 				{
 					if (temp[k] == ' ')
-						temp[k] = 'ÿ';
+						temp[k] = '0xff';
 				}
 				fprintf(f,"%s ",temp);
 			}
 			else
 			{
-				fprintf(f,"ÿ ");
+				fprintf(f,"0xff ");
 			}
 		}
 		fprintf(f,"\n");
@@ -2190,11 +2190,11 @@ void whois_read_file(void)
 			(char *) &whois_details[WHOIS_COUNT].dyn[8].name,
 			(char *) &whois_details[WHOIS_COUNT].dyn[9].name);
 		
-		//convert all ÿ back to spaces
+		//convert all 0xff back to spaces
 		temp_len = strlen(whois_details[WHOIS_COUNT].ip);
 		for(i=0; i<temp_len; i++)
 		{
-			if(whois_details[WHOIS_COUNT].ip[i] == 'ÿ')
+			if(whois_details[WHOIS_COUNT].ip[i] == '0xff')
 			{
 				whois_details[WHOIS_COUNT].ip[i] = ' ';
 			}
@@ -2203,7 +2203,7 @@ void whois_read_file(void)
 		temp_len = strlen(whois_details[WHOIS_COUNT].seen);
 		for(i=0; i<temp_len; i++)
 		{
-			if(whois_details[WHOIS_COUNT].seen[i] == 'ÿ')
+			if(whois_details[WHOIS_COUNT].seen[i] == '0xff')
 			{
 				whois_details[WHOIS_COUNT].seen[i] = ' ';
 			}
@@ -2213,7 +2213,7 @@ void whois_read_file(void)
 		{
 			if ((whois_details[WHOIS_COUNT].dyn[i].name[0]==255)
 				|| (whois_details[WHOIS_COUNT].dyn[i].name[0]== -1) 
-				|| (whois_details[WHOIS_COUNT].dyn[i].name[0] == 'ÿ'))
+				|| (whois_details[WHOIS_COUNT].dyn[i].name[0] == '0xff'))
 			{
 				whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
 			}
@@ -2222,7 +2222,7 @@ void whois_read_file(void)
 				name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
 				for(j=0; j<name_len; j++)
 				{
-					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == 'ÿ')
+					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == '0xff')
 					{
 						whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
 					}
