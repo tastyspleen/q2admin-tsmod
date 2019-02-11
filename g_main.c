@@ -220,7 +220,7 @@ game_export_t *GetGameAPI(game_import_t *import)
 		
 	// setup zbot test strings
 	srand( (unsigned)time( NULL ) );
-	random(); random(); random(); random();
+	i = random(); i = random(); i = random(); i = random(); //QW: not sure why these are needed
 	zbot_teststring1[7] = zbot_teststring_test1[7] = '0' + (int)(9.9 * random());
 	zbot_teststring1[8] = zbot_teststring_test1[8] = '0' + (int)(9.9 * random());
 	zbot_teststring_test2[3] = '0' + (int)(9.9 * random());
