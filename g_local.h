@@ -1023,7 +1023,7 @@ str++; \
 
 #define itoa(x, y, z)   itoaNotAUnixFunction(z, y, z)
 
-#pragma warning (disable: 4701)
+//#pragma warning (disable: 4701) // Potientially uninitialized local variable warning
 
 #define INITPERFORMANCE(instance) unsigned long performancetimer##instance = 0
 #define INITPERFORMANCE_2(instance) \
