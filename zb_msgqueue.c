@@ -39,7 +39,7 @@ void addCmdQueue(int  client, byte command, float timeout, unsigned long data, c
 
 	if (command == QCMD_DISCONNECT)
 	{
-		gi.cprintf (NULL, PRINT_HIGH, "%s is being disconnected for %s.\n", proxyinfo[client].name, str);
+		gi.cprintf (NULL, PRINT_HIGH, "%s is being disconnected. %s", proxyinfo[client].name, str);
 	}
 
 //*** UPDATE START ***
