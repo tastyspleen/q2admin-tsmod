@@ -1333,7 +1333,7 @@ void dprintf_internal (char *fmt, ...)
 						}
 				}
 		}
-	else if(proxyinfo[clienti].inuse && !q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd))
+	else if (proxyinfo[clienti].inuse && (!q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd)))
 		{
 			clienti = -1;
 		}
@@ -1470,7 +1470,7 @@ void cprintf_internal(edict_t *ent, int printlevel, char *fmt, ...)
 							*cp=' ';
 						}
 						
-					*cp++;
+					cp++;
 				}
 		}
 		
@@ -1560,7 +1560,7 @@ void bprintf_internal(int printlevel, char *fmt,...)
 									*cp = ' ';
 								}
 								
-							*cp++;
+							cp++;
 						}
 				}
 				

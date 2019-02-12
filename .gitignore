@@ -6,3 +6,4 @@ ipch/
 *.so
 *.suo
 *.vcxproj.user
+.vs/

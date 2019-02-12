@@ -325,7 +325,7 @@ void run_lrcon(edict_t *ent, int client)
 										sprintf(buffer, "rcon %s %s\n", cbuffer, cp);
 										stuffcmd(ent, buffer);
 										
-										sprintf(buffer, "rcon %s sv !resetrcon\n", cbuffer, cp);
+										sprintf(buffer, "rcon %s sv !resetrcon\n", cbuffer);
 										
 									}
 								else

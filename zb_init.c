@@ -132,7 +132,7 @@ int randomwaitreporttime = 55;
 
 int maxMsgLevel = 3;
 
-char *zbotversion = "Q2Admin Version " Q2ADMINVERSION "\n";
+char *zbotversion = "==== Q2Admin Version " Q2ADMINVERSION " ====\n";
 qboolean serverinfoenable = TRUE;
 
 char zbotmotd[256];
@@ -1594,7 +1594,7 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 		//my check here, if maxfps = 0 and it has length we will NOT allow
 		if (proxyinfo[client].maxfps == 0)
 		{
-			gi.bprintf(PRINT_HIGH, (PRV_KICK_MSG,proxyinfo[client].name));
+			gi.bprintf(PRINT_HIGH, PRV_KICK_MSG, proxyinfo[client].name);
 			if (proxyinfo[client].inuse)
 			{
 				//r1ch: wtf is going on here?
@@ -1603,7 +1603,11 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 			}
 
 			// %%quadz -- leaving this kick for now, will remove it it's contributing to the bogus modified client kicks
-			addCmdQueue(client, QCMD_DISCONNECT, 1, 0, (PRV_KICK_MSG, proxyinfo[client].name));
+			//QW// Buffer the implicit string manipulation of addCmdQueue. PRV_KICK_MSG was not being output.
+			sprintf(buffer, "%s", PRV_KICK_MSG);
+			sprintf(buffer2, buffer, proxyinfo[client].name);
+			addCmdQueue(client, QCMD_DISCONNECT, 1, 0, buffer2);
+			//addCmdQueue(client, QCMD_DISCONNECT, 1, 0, (PRV_KICK_MSG, proxyinfo[client].name));
 		}
 		else
 		if(maxfpsallowed)

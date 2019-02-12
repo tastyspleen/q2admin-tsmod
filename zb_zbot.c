@@ -706,7 +706,7 @@ void G_RunFrame(void)
 									maxReconnectList++;
 								}
 
-							q2a_strcpy(buffer, ("%s\n", defaultreconnectmessage));
+							q2a_memcpy(buffer, defaultreconnectmessage, q2a_strlen(defaultreconnectmessage) + 1);
 							gi.cprintf (ent, PRINT_HIGH, buffer);
 
 							generateRandomString(ReconnectString, 5);
@@ -845,7 +845,7 @@ void G_RunFrame(void)
 						{
 							unsigned int i;
 
-							q2a_strcpy(buffer, ("%s\n", zbotuserdisplay));
+							q2a_memcpy(buffer, zbotuserdisplay, q2a_strlen(zbotuserdisplay) + 1);
 
 							for(i = 0; i < numofdisplays; i++)
 								{
@@ -944,7 +944,7 @@ void G_RunFrame(void)
 						{
 							unsigned int i;
 
-							q2a_strcpy(buffer, ("%s\n", zbotuserdisplay));
+							q2a_memcpy(buffer, zbotuserdisplay, q2a_strlen(zbotuserdisplay) + 1);
 
 							for(i = 0; i < numofdisplays; i++)
 								{
@@ -1515,7 +1515,10 @@ void Read_Admin_cfg(void)
 	i = 0;
 	while ((!feof(f)) && (i<MAX_ADMINS))
 	{
-		fscanf(f,"%s %s %d",&admin_pass[i].name,&admin_pass[i].password,&admin_pass[i].level);
+		fscanf(f,"%s %s %d",
+			(char *) &admin_pass[i].name,
+			(char *) &admin_pass[i].password,
+			(int *)  &admin_pass[i].level);
 		i++;
 	}
 	if (!admin_pass[i].level)
@@ -1541,7 +1544,10 @@ file2:;
 	i = 0;
 	while ((!feof(f)) && (i<MAX_ADMINS))
 	{
-		fscanf(f,"%s %s %d",&q2a_bypass_pass[i].name,&q2a_bypass_pass[i].password,&q2a_bypass_pass[i].level);
+		fscanf(f,"%s %s %d",
+			(char *) &q2a_bypass_pass[i].name,
+			(char *) &q2a_bypass_pass[i].password,
+			(int *)  &q2a_bypass_pass[i].level);
 		i++;
 	}
 	if (!q2a_bypass_pass[i].level)
@@ -2108,11 +2114,11 @@ void whois_write_file(void)
 		strcpy(temp,whois_details[i].ip);
 		temp_len = strlen(temp);
 
-		//convert spaces to ÿ
+		//convert spaces to 0xff (\0xff)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 'ÿ';
+				temp[j] = 0xff;
 		}
 		fprintf(f,"%i %s ",whois_details[i].id,temp);
 
@@ -2122,7 +2128,7 @@ void whois_write_file(void)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 'ÿ';
+				temp[j] = 0xff;
 		}
 		fprintf(f,"%s ",temp);
 
@@ -2136,13 +2142,13 @@ void whois_write_file(void)
 				for (k=0;k<temp_len;k++)
 				{
 					if (temp[k] == ' ')
-						temp[k] = 'ÿ';
+						temp[k] = 0xff;
 				}
 				fprintf(f,"%s ",temp);
 			}
 			else
 			{
-				fprintf(f,"ÿ ");
+				fprintf(f,"0xff ");
 			}
 		}
 		fprintf(f,"\n");
@@ -2171,24 +2177,24 @@ void whois_read_file(void)
 	{
 		fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
 			&whois_details[WHOIS_COUNT].id,
-			&whois_details[WHOIS_COUNT].ip,
-			&whois_details[WHOIS_COUNT].seen,
-			&whois_details[WHOIS_COUNT].dyn[0].name,
-			&whois_details[WHOIS_COUNT].dyn[1].name,
-			&whois_details[WHOIS_COUNT].dyn[2].name,
-			&whois_details[WHOIS_COUNT].dyn[3].name,
-			&whois_details[WHOIS_COUNT].dyn[4].name,
-			&whois_details[WHOIS_COUNT].dyn[5].name,
-			&whois_details[WHOIS_COUNT].dyn[6].name,
-			&whois_details[WHOIS_COUNT].dyn[7].name,
-			&whois_details[WHOIS_COUNT].dyn[8].name,
-			&whois_details[WHOIS_COUNT].dyn[9].name);		
+			(char *) &whois_details[WHOIS_COUNT].ip,
+			(char *) &whois_details[WHOIS_COUNT].seen,
+			(char *) &whois_details[WHOIS_COUNT].dyn[0].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[1].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[2].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[3].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[4].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[5].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[6].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[7].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[8].name,
+			(char *) &whois_details[WHOIS_COUNT].dyn[9].name);
 		
-		//convert all ÿ back to spaces
+		//convert all 0xff back to spaces
 		temp_len = strlen(whois_details[WHOIS_COUNT].ip);
 		for(i=0; i<temp_len; i++)
 		{
-			if(whois_details[WHOIS_COUNT].ip[i] == 'ÿ')
+			if(whois_details[WHOIS_COUNT].ip[i] == 0xff)
 			{
 				whois_details[WHOIS_COUNT].ip[i] = ' ';
 			}
@@ -2197,7 +2203,7 @@ void whois_read_file(void)
 		temp_len = strlen(whois_details[WHOIS_COUNT].seen);
 		for(i=0; i<temp_len; i++)
 		{
-			if(whois_details[WHOIS_COUNT].seen[i] == 'ÿ')
+			if(whois_details[WHOIS_COUNT].seen[i] == 0xff)
 			{
 				whois_details[WHOIS_COUNT].seen[i] = ' ';
 			}
@@ -2207,7 +2213,7 @@ void whois_read_file(void)
 		{
 			if ((whois_details[WHOIS_COUNT].dyn[i].name[0]==255)
 				|| (whois_details[WHOIS_COUNT].dyn[i].name[0]== -1) 
-				|| (whois_details[WHOIS_COUNT].dyn[i].name[0] == 'ÿ'))
+				|| (whois_details[WHOIS_COUNT].dyn[i].name[0] == 0xff))
 			{
 				whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
 			}
@@ -2216,7 +2222,7 @@ void whois_read_file(void)
 				name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
 				for(j=0; j<name_len; j++)
 				{
-					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == 'ÿ')
+					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == 0xff)
 					{
 						whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
 					}
