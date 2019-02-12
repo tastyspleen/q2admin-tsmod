@@ -26,13 +26,29 @@ ifeq ($(ARCH),i386)
 CFLAGS =-m32 -O3 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
 endif
 
+# flavors of Linux
+ifeq ($(shell uname),Linux)
+#SVNDEV := -D'SVN_REV="$(shell svnversion -n .)"'
+#CFLAGS += $(SVNDEV)
+CFLAGS += -DLINUX
+LIBTOOL = ldd
+endif
+
+# OS X wants to be Linux and FreeBSD too.
+ifeq ($(shell uname),Darwin)
+#SVNDEV := -D'SVN_REV="$(shell svnversion -n .)"'
+#CFLAGS += $(SVNDEV)
+CFLAGS += -DLINUX
+LIBTOOL = otool
+endif
+
 OUTFILES = g_main.o zb_spawn.o zb_vote.o zb_ban.o zb_cmd.o zb_flood.o \
 	zb_init.o zb_log.o zb_lrcon.o zb_msgqueue.o zb_util.o zb_zbot.o \
 	zb_zbotcheck.o zb_disable.o zb_checkvar.o
 
 game$(ARCH).so: $(OUTFILES)
 	$(CC) $(CFLAGS) $(OUTFILES) $(LDFLAGS) -o game$(ARCH).so
-	ldd -r $@
+	$(LIBTOOL) -r $@
 
 zip: game$(ARCH).so
 	strip game$(ARCH).so
