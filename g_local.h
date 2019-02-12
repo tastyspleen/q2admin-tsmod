@@ -775,7 +775,17 @@ enum zb_logtypesenum
 #define IW_INVALIDIPADDRESS  19
 
 #define MINIMUMTIMEOUT   5
-#define MAXSTARTTRY    500
+/* //QwazyWabbit//
+ proxyinfo[client].retries is unsigned char
+ and MAXSTARTTRY was set at 500. Let's set
+ it to something reachable for that type. 
+ Note: MAXDETECTRETRIES for RatBot detection
+ is much smaller. I have no idea what's
+ appropriate here, the 500 value goes back to
+ sources dating back to 2005. I don't know
+ why this is hard coded. It should have been
+ a configuration variable. */
+#define MAXSTARTTRY    20
 
 #define getEntOffset(ent)  (((char *)ent - (char *)globals.edicts) / globals.edict_size)
 #define getEnt(entnum)   (edict_t *)((char *)globals.edicts + (globals.edict_size * (entnum)))
