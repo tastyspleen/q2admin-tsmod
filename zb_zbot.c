@@ -2122,7 +2122,7 @@ void whois_write_file(void)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 0xff;
+				temp[j] = '\xff';
 		}
 		fprintf(f,"%i %s ",whois_details[i].id,temp);
 
@@ -2132,7 +2132,7 @@ void whois_write_file(void)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 0xff;
+				temp[j] = '\xff';
 		}
 		fprintf(f,"%s ",temp);
 
@@ -2146,7 +2146,7 @@ void whois_write_file(void)
 				for (k=0;k<temp_len;k++)
 				{
 					if (temp[k] == ' ')
-						temp[k] = 0xff;
+						temp[k] = '\xff';
 				}
 				fprintf(f,"%s ",temp);
 			}
@@ -2198,7 +2198,7 @@ void whois_read_file(void)
 		temp_len = strlen(whois_details[WHOIS_COUNT].ip);
 		for(i=0; i<temp_len; i++)
 		{
-			if((unsigned char)whois_details[WHOIS_COUNT].ip[i] == 0xff)
+			if(whois_details[WHOIS_COUNT].ip[i] == '\xff')
 			{
 				whois_details[WHOIS_COUNT].ip[i] = ' ';
 			}
@@ -2207,7 +2207,7 @@ void whois_read_file(void)
 		temp_len = strlen(whois_details[WHOIS_COUNT].seen);
 		for(i=0; i<temp_len; i++)
 		{
-			if((unsigned char)whois_details[WHOIS_COUNT].seen[i] == 0xff)
+			if(whois_details[WHOIS_COUNT].seen[i] == '\xff')
 			{
 				whois_details[WHOIS_COUNT].seen[i] = ' ';
 			}
@@ -2215,7 +2215,7 @@ void whois_read_file(void)
 		
 		for (i=0; i<10; i++)
 		{
-			if ((unsigned char)whois_details[WHOIS_COUNT].dyn[i].name[0] == 0xff)
+			if (whois_details[WHOIS_COUNT].dyn[i].name[0] == '\xff')
 			{
 				whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
 			}
@@ -2224,7 +2224,7 @@ void whois_read_file(void)
 				name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
 				for(j=0; j<name_len; j++)
 				{
-					if((unsigned char)whois_details[WHOIS_COUNT].dyn[i].name[j] == 0xff)
+					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == '\xff')
 					{
 						whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
 					}
