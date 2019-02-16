@@ -2152,7 +2152,7 @@ void whois_write_file(void)
 			}
 			else
 			{
-				fprintf(f,"0xff ");
+				fprintf(f,"\xff ");
 			}
 		}
 		fprintf(f,"\n");
