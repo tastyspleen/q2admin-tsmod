@@ -40,9 +40,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #pragma warning(disable : 4996)	// disable warnings from VS 2010 about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
 #endif
 
-//r1ch
-#define	snprintf _snprintf
-
 #endif
 #include <stdio.h>
 #include <time.h>
@@ -53,6 +50,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <assert.h>
 #include <math.h>
 */
+
+#ifdef _WIN32
+//r1ch
+#define	snprintf _snprintf
+#endif
+
 #if defined _M_IX86 && !defined C_ONLY
 #define id386 1
 #else
