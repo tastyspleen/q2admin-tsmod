@@ -176,7 +176,7 @@ play_person_enable "No"
 ; Enable say_person command.
 ; Send a message to 1 person in the game.
 ;
-say_person_enable "No"
+say_person_enable "Yes"
 
 
 ;
