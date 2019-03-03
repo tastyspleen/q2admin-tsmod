@@ -612,19 +612,19 @@ void run_vote(edict_t *ent, int client)
 		{
 			if(voteminclients)
 				{
-					int client;
-					int maxclientsingame = 0;
+					int client_num;
+					int client_count = 0;
 					
 					// count number of clients
-					for(client = 0; client < maxclients->value; client++)
+					for(client_num = 0; client_num < maxclients->value; client_num++)
 						{
-							if(proxyinfo[client].inuse)
+							if(proxyinfo[client_num].inuse)
 								{
-									maxclientsingame++;
+									client_count++;
 								}
 						}
 						
-					if(voteminclients > maxclientsingame)
+					if(voteminclients > client_count)
 						{
 							gi.cprintf(ent, PRINT_HIGH, "Not enough people to vote.\n");
 							return;
