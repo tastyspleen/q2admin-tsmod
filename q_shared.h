@@ -51,15 +51,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <math.h>
 */
 
-//QW// 
-// With VS2015 and linkage to Visual Studio platform
-// toolset v140 or higher snprintf is C99 standard
-// compliant and always '\0' terminates.
-// So now we can use the standard library function
-// as long as we take care to link to the correct
-// C runtime and not the older CRT libraries.
-// Even so, usage here in q2admin explicitly
-// zero terminates the strings.
+//QwazyWabbit// 
+// From VS2015 with linkage to Visual Studio platform toolset v140 or later
+// snprintf is C99 standard compliant and always '\0' terminates.
+// We can now use the standard library function as long as we take care to
+// link to the correct C runtime and not the older CRT libraries.
+// Even so, usage in q2admin explicitly zero terminates the strings.
 #if defined _WIN32 && _MSC_VER < 1900
 //r1ch
 #define	snprintf _snprintf

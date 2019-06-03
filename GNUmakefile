@@ -19,11 +19,11 @@ CC = gcc -std=c99 -Wall
 
 cc = gcc
 
-CFLAGS =-O3 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
+CFLAGS =-O2 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
 LDFLAGS = -ldl -lm -shared
 
 ifeq ($(ARCH),i386)
-CFLAGS =-m32 -O3 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
+CFLAGS =-m32 -O2 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
 endif
 
 # flavors of Linux
