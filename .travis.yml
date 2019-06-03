@@ -4,4 +4,4 @@ compiler: gcc
 
 script:
   - make all
-  - setarch i386 make all
+ 
