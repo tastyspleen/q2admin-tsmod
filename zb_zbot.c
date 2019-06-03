@@ -2160,6 +2160,7 @@ void whois_read_file(void)
 	char	name[256];
 	unsigned int i,j;
 	int temp_len,name_len;
+	int elements;
 
 	sprintf(name, "%s/q2adminwhois.txt", moddir);
 
@@ -2173,7 +2174,7 @@ void whois_read_file(void)
 	WHOIS_COUNT = 0;
 	while ((!feof(f)) && (WHOIS_COUNT < whois_active))
 	{
-		fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
+		elements = fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
 			&whois_details[WHOIS_COUNT].id,
 			(char *) &whois_details[WHOIS_COUNT].ip,
 			(char *) &whois_details[WHOIS_COUNT].seen,
@@ -2188,44 +2189,47 @@ void whois_read_file(void)
 			(char *) &whois_details[WHOIS_COUNT].dyn[8].name,
 			(char *) &whois_details[WHOIS_COUNT].dyn[9].name);
 		
-		//convert all 0xff back to spaces
-		temp_len = strlen(whois_details[WHOIS_COUNT].ip);
-		for(i=0; i<temp_len; i++)
+		if (elements == 13)
 		{
-			if(whois_details[WHOIS_COUNT].ip[i] == '\xff')
+			//convert all 0xff back to spaces
+			temp_len = strlen(whois_details[WHOIS_COUNT].ip);
+			for (i = 0; i < temp_len; i++)
 			{
-				whois_details[WHOIS_COUNT].ip[i] = ' ';
-			}
-		}
-
-		temp_len = strlen(whois_details[WHOIS_COUNT].seen);
-		for(i=0; i<temp_len; i++)
-		{
-			if(whois_details[WHOIS_COUNT].seen[i] == '\xff')
-			{
-				whois_details[WHOIS_COUNT].seen[i] = ' ';
-			}
-		}
-		
-		for (i=0; i<10; i++)
-		{
-			if (whois_details[WHOIS_COUNT].dyn[i].name[0] == '\xff')
-			{
-				whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
-			}
-			else
-			{
-				name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
-				for(j=0; j<name_len; j++)
+				if (whois_details[WHOIS_COUNT].ip[i] == '\xff')
 				{
-					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == '\xff')
+					whois_details[WHOIS_COUNT].ip[i] = ' ';
+				}
+			}
+
+			temp_len = strlen(whois_details[WHOIS_COUNT].seen);
+			for (i = 0; i < temp_len; i++)
+			{
+				if (whois_details[WHOIS_COUNT].seen[i] == '\xff')
+				{
+					whois_details[WHOIS_COUNT].seen[i] = ' ';
+				}
+			}
+
+			for (i = 0; i < 10; i++)
+			{
+				if (whois_details[WHOIS_COUNT].dyn[i].name[0] == '\xff')
+				{
+					whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
+				}
+				else
+				{
+					name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
+					for (j = 0; j < name_len; j++)
 					{
-						whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
+						if (whois_details[WHOIS_COUNT].dyn[i].name[j] == '\xff')
+						{
+							whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
+						}
 					}
 				}
 			}
+			WHOIS_COUNT++;
 		}
-		WHOIS_COUNT++;
 	}
 	fclose(f);
 }
