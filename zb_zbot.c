@@ -1504,93 +1504,87 @@ void Read_Admin_cfg(void)
 {
 	FILE	*f;
 	char	name[256];
-	int i,i2;
+	int i;
+	int elements;
 
 	sprintf(name, "%s/q2adminlogin.txt", moddir);
+	f = fopen(name, "r");
+	if (f)
+	{
+		i = 0;
+		while ((!feof(f)) && (i < MAX_ADMINS))
+		{
+			elements = fscanf(f, "%s %s %d",
+				(char *)&admin_pass[i].name,
+				(char *)&admin_pass[i].password,
+				(int *)&admin_pass[i].level);
 
-	f = fopen (name, "rb");
-	if (!f)
-	{
-		gi.dprintf ("WARNING: %s could not be found\n", name);
-		goto file2;
-		return;
-	}	
-	
-	i = 0;
-	while ((!feof(f)) && (i<MAX_ADMINS))
-	{
-		fscanf(f,"%s %s %d",
-			(char *) &admin_pass[i].name,
-			(char *) &admin_pass[i].password,
-			(int *)  &admin_pass[i].level);
-		i++;
+			if ((elements == 3) && admin_pass[i].level)
+				i++;
+		}
+		num_admins = i;
+		if (num_admins < MAX_ADMINS)
+			for (i = num_admins; i < MAX_ADMINS; i++) 
+				admin_pass[i].level = 0;
+
+		fclose(f);
 	}
-	if (!admin_pass[i].level)
-		i--;
-	num_admins = i;
-	if (i<MAX_ADMINS)
-		for (i2=i; i2<MAX_ADMINS; i2++)
-			admin_pass[i2].level = 0;
+	else
+		gi.dprintf("WARNING: %s could not be found\n", name);
 
-	//read em in
-	fclose(f);
-
-file2:;
 	sprintf(name, "%s/q2adminbypass.txt", moddir);
-
-	f = fopen (name, "rb");
-	if (!f)
+	f = fopen(name, "r");
+	if (f)
 	{
-		gi.dprintf ("WARNING: %s could not be found\n", name);
-		return;
-	}
-	
-	i = 0;
-	while ((!feof(f)) && (i<MAX_ADMINS))
-	{
-		fscanf(f,"%s %s %d",
-			(char *) &q2a_bypass_pass[i].name,
-			(char *) &q2a_bypass_pass[i].password,
-			(int *)  &q2a_bypass_pass[i].level);
-		i++;
-	}
-	if (!q2a_bypass_pass[i].level)
-		i--;
-	num_q2a_admins = i;
-	if (i<MAX_ADMINS)
-		for (i2=i; i2<MAX_ADMINS; i2++)
-			q2a_bypass_pass[i2].level = 0;
+		i = 0;
+		while ((!feof(f)) && (i < MAX_ADMINS))
+		{
+			elements = fscanf(f, "%s %s %d",
+				(char *)&q2a_bypass_pass[i].name,
+				(char *)&q2a_bypass_pass[i].password,
+				(int *)&q2a_bypass_pass[i].level);
 
-	//read em in
-	fclose(f);
+			if ((elements == 3) && q2a_bypass_pass[i].level)
+				i++;
+		}
+		num_q2a_admins = i;
+		if (num_q2a_admins < MAX_ADMINS)
+			for (i = num_q2a_admins; i < MAX_ADMINS; i++)
+				q2a_bypass_pass[i].level = 0;
+
+		fclose(f);
+	}
+	else
+		gi.dprintf("WARNING: %s could not be found\n", name);
 }
 
-void ADMIN_players(edict_t *ent,int client)
+void ADMIN_players(edict_t *ent, int client)
 {
 	unsigned int i;
-	gi.cprintf(ent,PRINT_HIGH,"Players\n");
+	gi.cprintf(ent, PRINT_HIGH, "Players\n");
 	for (i = 0; i < maxclients->value; i++)
 	{
-	if (proxyinfo[i].inuse)
-	{
-			gi.cprintf(ent,PRINT_HIGH,"  %2i : %s\n",i,proxyinfo[i].name);
+		if (proxyinfo[i].inuse) 
+		{
+			gi.cprintf(ent, PRINT_HIGH, "  %2i : %s\n", i, proxyinfo[i].name);
+		}
 	}
-	}
-	gi.cprintf(ent,PRINT_HIGH,"*******************************\n");
+	gi.cprintf(ent, PRINT_HIGH, "*******************************\n");
 }
 
-void ADMIN_dumpmsec(edict_t *ent,int client)
+void ADMIN_dumpmsec(edict_t *ent, int client)
 {
 	unsigned int i;
-	gi.cprintf(ent,PRINT_HIGH,"MSEC\n");
+	gi.cprintf(ent, PRINT_HIGH, "MSEC\n");
 	for (i = 0; i < maxclients->value; i++)
 	{
-	if (proxyinfo[i].inuse)
-	{
-			gi.cprintf(ent,PRINT_HIGH,"  %2i : %-16s %d\n",i,proxyinfo[i].name,proxyinfo[i].msec_last);
+		if (proxyinfo[i].inuse) 
+		{
+			gi.cprintf(ent, PRINT_HIGH,	"  %2i : %-16s %d\n",
+				i, proxyinfo[i].name, proxyinfo[i].msec_last);
+		}
 	}
-	}
-	gi.cprintf(ent,PRINT_HIGH,"*******************************\n");
+	gi.cprintf(ent, PRINT_HIGH, "*******************************\n");
 }
 
 void ADMIN_dumpuser(edict_t *ent,int client,int user,qboolean check)
