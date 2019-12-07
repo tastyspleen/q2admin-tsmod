@@ -1,3 +1,6 @@
+Debug/
+Release/
+x64/
 build/
 ipch/
 *.o
@@ -6,3 +9,4 @@ ipch/
 *.so
 *.suo
 *.vcxproj.user
+.vs/

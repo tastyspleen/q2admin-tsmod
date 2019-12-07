@@ -612,19 +612,19 @@ void run_vote(edict_t *ent, int client)
 		{
 			if(voteminclients)
 				{
-					int client;
-					int maxclientsingame = 0;
+					int client_num;
+					int client_count = 0;
 					
 					// count number of clients
-					for(client = 0; client < maxclients->value; client++)
+					for(client_num = 0; client_num < maxclients->value; client_num++)
 						{
-							if(proxyinfo[client].inuse)
+							if(proxyinfo[client_num].inuse)
 								{
-									maxclientsingame++;
+									client_count++;
 								}
 						}
 						
-					if(voteminclients > maxclientsingame)
+					if(voteminclients > client_count)
 						{
 							gi.cprintf(ent, PRINT_HIGH, "Not enough people to vote.\n");
 							return;
@@ -761,7 +761,8 @@ void checkOnVoting(void)
 					if(percent >= ((double)votepasspercent / 100))
 						{
 							q2a_strcpy(printstr, "Vote PASSED!");
-							q2a_strcpy(cmdpassedvote, cmdvote); //UPDATE
+				q2a_strcpy(cmdpassedvote, "game");		//r1q2 won't do "map", we insert "game" to get "gamemap"
+				q2a_strcat(cmdpassedvote, cmdvote);
 							addCmdQueue(-1, QCMD_RUNVOTECMD, 5, 0, 0);
 						}
 					else

@@ -30,15 +30,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #ifdef _WIN32
 // unknown pragmas are SUPPOSED to be ignored, but....
-#pragma warning(disable : 4244)     // MIPS
-#pragma warning(disable : 4136)     // X86
-#pragma warning(disable : 4051)     // ALPHA
-
-#pragma warning(disable : 4018)     // signed/unsigned mismatch
-#pragma warning(disable : 4305)  // truncation from const double to float
-
-//r1ch
-#define	snprintf _snprintf
+#pragma warning(disable : 4244)	// float to int conversion warning
+#pragma warning(disable : 4100)	// unreferenced formal parameter
+#pragma warning(disable : 4131)	// uses old-style declarator (regex.c is ancient)
+#pragma warning(disable : 4127)	// conditional expression is constant
+#pragma warning(disable : 4018)	// signed/unsigned mismatch
+#pragma warning(disable : 4305)	// truncation from const double to float
+#if _MSC_VER > 1500
+#pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#endif
 
 #endif
 #include <stdio.h>
@@ -50,6 +50,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <assert.h>
 #include <math.h>
 */
+
+//QwazyWabbit// 
+// From VS2015 with linkage to Visual Studio platform toolset v140 or later
+// snprintf is C99 standard compliant and always '\0' terminates.
+// We can now use the standard library function as long as we take care to
+// link to the correct C runtime and not the older CRT libraries.
+// Even so, usage in q2admin explicitly zero terminates the strings.
+#if defined _WIN32 && _MSC_VER < 1900
+//r1ch
+#define	snprintf _snprintf
+#endif
+
 #if defined _M_IX86 && !defined C_ONLY
 #define id386 1
 #else
@@ -152,9 +164,6 @@ extern vec3_t vec3_origin;
 
 #define IS_NAN(x) (((*(int *)&x)&nanmask)==nanmask)
 
-// microsoft's fabs seems to be ungodly slow...
-//float Q_fabs (float f);
-//#define fabs(f) Q_fabs(f)
 #if !defined C_ONLY
 extern long Q_ftol( float f );
 #else
@@ -231,13 +240,6 @@ char *COM_Parse (char **data_p, char **command_p);
 void Com_sprintf (char *dest, int size, char *fmt, ...);
 
 void Com_PageInMemory (byte *buffer, int size);
-
-//=============================================
-
-// portable case insensitive compare
-int Q_stricmp (char *s1, char *s2);
-int Q_strcasecmp (char *s1, char *s2);
-int Q_strncasecmp (char *s1, char *s2, int n);
 
 //=============================================
 
@@ -920,6 +922,11 @@ ELEMENTS COMMUNICATED ACROSS THE NET
 #define CS_PLAYERSKINS  (CS_ITEMS+MAX_ITEMS)
 #define MAX_CONFIGSTRINGS (CS_PLAYERSKINS+MAX_CLIENTS)
 
+//QW// The 2080 magic number comes from q_shared.h of the original game.
+// No game mod can go over this 2080 limit.
+#if (MAX_CONFIGSTRINGS > 2080)
+	#error MAX_CONFIGSTRINGS > 2080
+#endif
 
 //==============================================
 
@@ -971,7 +978,7 @@ entity_state_t;
 
 // player_state_t is the information needed in addition to pmove_state_t
 // to rendered a view.  There will only be 10 player_state_t sent each second,
-// but the number of pmove_state_t changes will be reletive to client
+// but the number of pmove_state_t changes will be relative to client
 // frame rates
 typedef struct
 	{
@@ -996,7 +1003,4 @@ typedef struct
 		int   rdflags;  // refdef flags
 		
 		short  stats[MAX_STATS];  // fast status bar updates
-	}
-player_state_t;
-
-
+	} player_state_t;

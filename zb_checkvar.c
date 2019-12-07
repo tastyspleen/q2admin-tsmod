@@ -116,7 +116,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 						
 					if ( *cp == 0 )
 						{
-							gi.dprintf ("Error loading CHECKVAR from line %d in file %s, unexcepted end of line\n", uptoLine, checkvarname);
+				gi.dprintf ("Error loading CHECKVAR from line %d in file %s, unexpected end of line\n", uptoLine, checkvarname);
 							continue;
 						}
 						
@@ -165,7 +165,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 									
 							if ( *cp == 0 )
 							{
-								gi.dprintf ("Error loading CHECKVAR from line %d in file %s, unexcepted end of line\n", uptoLine, checkvarname);
+					gi.dprintf ("Error loading CHECKVAR from line %d in file %s, unexpected end of line\n", uptoLine, checkvarname);
 								continue;
 							}
 									

@@ -1333,7 +1333,7 @@ void dprintf_internal (char *fmt, ...)
 						}
 				}
 		}
-	else if(proxyinfo[clienti].inuse && !q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd))
+	else if (proxyinfo[clienti].inuse && (!q2a_strstr(cbuffer, proxyinfo[clienti].name) || !q2a_strstr(cbuffer, proxyinfo[clienti].lastcmd)))
 		{
 			clienti = -1;
 		}
@@ -1470,7 +1470,7 @@ void cprintf_internal(edict_t *ent, int printlevel, char *fmt, ...)
 							*cp=' ';
 						}
 						
-					*cp++;
+					cp++;
 				}
 		}
 		
@@ -1560,7 +1560,7 @@ void bprintf_internal(int printlevel, char *fmt,...)
 									*cp = ' ';
 								}
 								
-							*cp++;
+							cp++;
 						}
 				}
 				
@@ -2496,7 +2496,8 @@ static qboolean client_command_is_mod_exploit (edict_t *ent, int client)
 qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 {
 //*** UPDATE START ***
-	unsigned int i, cnt, sameip;
+	int i;
+	unsigned int cnt, sameip;
 	char abuffer[256];
 	char stemp[1024];
 	char response[2048];
@@ -2589,8 +2590,11 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 		}
 	else if(proxyinfo[client].clientcommand & CCMD_ZPROXYCHECK2) // check for proxy string
 		{
+			//QW// eliminate unreferenced variables
+			/*
 			char *a1 = gi.argv(1);
 			char *a2 = gi.argv(2);
+			*/
 			
 			if(!zbotdetect || !proxyinfo[client].inuse)
 				{
@@ -3931,7 +3935,7 @@ void impulsesToKickOnRun(int startarg, edict_t *ent, int client)
 			startarg++;
 		}
 		
-	while(startarg < gi.argc() && maxImpulses < MAXIMPULSESTOTEST)
+	while(startarg < gi.argc() && maxImpulses < (MAXIMPULSESTOTEST - 1))
 		{
 			impulsesToKickOn[maxImpulses] = q2a_atoi(gi.argv(startarg));
 			
@@ -3960,7 +3964,7 @@ void impulsesToKickOnRun(int startarg, edict_t *ent, int client)
 
 void impulsesToKickOnInit(char *arg)
 {
-	while(*arg && maxImpulses < MAXIMPULSESTOTEST)
+	while(*arg && maxImpulses < (MAXIMPULSESTOTEST - 1))
 		{
 			impulsesToKickOn[maxImpulses] = q2a_atoi(arg);
 			
