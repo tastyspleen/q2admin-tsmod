@@ -30,18 +30,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #ifdef _WIN32
 // unknown pragmas are SUPPOSED to be ignored, but....
-#pragma warning(disable : 4244)     // MIPS
-#pragma warning(disable : 4136)     // X86
-#pragma warning(disable : 4051)     // ALPHA
-
-#pragma warning(disable : 4018)     // signed/unsigned mismatch
-#pragma warning(disable : 4305)  // truncation from const double to float
+#pragma warning(disable : 4244)	// float to int conversion warning
+#pragma warning(disable : 4100)	// unreferenced formal parameter
+#pragma warning(disable : 4131)	// uses old-style declarator (regex.c is ancient)
+#pragma warning(disable : 4127)	// conditional expression is constant
+#pragma warning(disable : 4018)	// signed/unsigned mismatch
+#pragma warning(disable : 4305)	// truncation from const double to float
 #if _MSC_VER > 1500
-#pragma warning(disable : 4996)	// disable warnings from VS 2010 about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
 #endif
-
-//r1ch
-#define	snprintf _snprintf
 
 #endif
 #include <stdio.h>
@@ -53,6 +50,18 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <assert.h>
 #include <math.h>
 */
+
+//QwazyWabbit// 
+// From VS2015 with linkage to Visual Studio platform toolset v140 or later
+// snprintf is C99 standard compliant and always '\0' terminates.
+// We can now use the standard library function as long as we take care to
+// link to the correct C runtime and not the older CRT libraries.
+// Even so, usage in q2admin explicitly zero terminates the strings.
+#if defined _WIN32 && _MSC_VER < 1900
+//r1ch
+#define	snprintf _snprintf
+#endif
+
 #if defined _M_IX86 && !defined C_ONLY
 #define id386 1
 #else

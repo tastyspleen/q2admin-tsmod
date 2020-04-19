@@ -3935,7 +3935,7 @@ void impulsesToKickOnRun(int startarg, edict_t *ent, int client)
 			startarg++;
 		}
 		
-	while(startarg < gi.argc() && maxImpulses < MAXIMPULSESTOTEST)
+	while(startarg < gi.argc() && maxImpulses < (MAXIMPULSESTOTEST - 1))
 		{
 			impulsesToKickOn[maxImpulses] = q2a_atoi(gi.argv(startarg));
 			
@@ -3964,7 +3964,7 @@ void impulsesToKickOnRun(int startarg, edict_t *ent, int client)
 
 void impulsesToKickOnInit(char *arg)
 {
-	while(*arg && maxImpulses < MAXIMPULSESTOTEST)
+	while(*arg && maxImpulses < (MAXIMPULSESTOTEST - 1))
 		{
 			impulsesToKickOn[maxImpulses] = q2a_atoi(arg);
 			

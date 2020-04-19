@@ -1272,7 +1272,11 @@ void G_RunFrame(void)
 				{
 					if(proxyinfo[client].q2a_bypass)
 					{
-						gi.bprintf(PRINT_HIGH, "ƒ  %s has logged on without an anti-cheat client because of an arrangement\nƒ  with the server admin.  This is most likely because %s is using a linux\nƒ  or mac client - contact the server admin if you have issues with %s.\n", proxyinfo[client].name, proxyinfo[client].name, proxyinfo[client].name);
+						gi.bprintf(PRINT_HIGH, 
+							"\x83  %s has logged on without an anti-cheat client because of an arrangement\n"
+							"\x83  with the server admin.  This is most likely because %s is using a linux\n"
+							"\x83  or mac client - contact the server admin if you have issues with %s.\n", 
+							proxyinfo[client].name, proxyinfo[client].name, proxyinfo[client].name);
 					}
 				}
 				else if(command == QCMD_GETCMDQUEUE)
@@ -1500,93 +1504,87 @@ void Read_Admin_cfg(void)
 {
 	FILE	*f;
 	char	name[256];
-	int i,i2;
+	int i;
+	int elements;
 
 	sprintf(name, "%s/q2adminlogin.txt", moddir);
+	f = fopen(name, "r");
+	if (f)
+	{
+		i = 0;
+		while ((!feof(f)) && (i < MAX_ADMINS))
+		{
+			elements = fscanf(f, "%s %s %d",
+				(char *)&admin_pass[i].name,
+				(char *)&admin_pass[i].password,
+				(int *)&admin_pass[i].level);
 
-	f = fopen (name, "rb");
-	if (!f)
-	{
-		gi.dprintf ("WARNING: %s could not be found\n", name);
-		goto file2;
-		return;
-	}	
-	
-	i = 0;
-	while ((!feof(f)) && (i<MAX_ADMINS))
-	{
-		fscanf(f,"%s %s %d",
-			(char *) &admin_pass[i].name,
-			(char *) &admin_pass[i].password,
-			(int *)  &admin_pass[i].level);
-		i++;
+			if ((elements == 3) && admin_pass[i].level)
+				i++;
+		}
+		num_admins = i;
+		if (num_admins < MAX_ADMINS)
+			for (i = num_admins; i < MAX_ADMINS; i++) 
+				admin_pass[i].level = 0;
+
+		fclose(f);
 	}
-	if (!admin_pass[i].level)
-		i--;
-	num_admins = i;
-	if (i<MAX_ADMINS)
-		for (i2=i; i2<MAX_ADMINS; i2++)
-			admin_pass[i2].level = 0;
+	else
+		gi.dprintf("WARNING: %s could not be found\n", name);
 
-	//read em in
-	fclose(f);
-
-file2:;
 	sprintf(name, "%s/q2adminbypass.txt", moddir);
-
-	f = fopen (name, "rb");
-	if (!f)
+	f = fopen(name, "r");
+	if (f)
 	{
-		gi.dprintf ("WARNING: %s could not be found\n", name);
-		return;
-	}
-	
-	i = 0;
-	while ((!feof(f)) && (i<MAX_ADMINS))
-	{
-		fscanf(f,"%s %s %d",
-			(char *) &q2a_bypass_pass[i].name,
-			(char *) &q2a_bypass_pass[i].password,
-			(int *)  &q2a_bypass_pass[i].level);
-		i++;
-	}
-	if (!q2a_bypass_pass[i].level)
-		i--;
-	num_q2a_admins = i;
-	if (i<MAX_ADMINS)
-		for (i2=i; i2<MAX_ADMINS; i2++)
-			q2a_bypass_pass[i2].level = 0;
+		i = 0;
+		while ((!feof(f)) && (i < MAX_ADMINS))
+		{
+			elements = fscanf(f, "%s %s %d",
+				(char *)&q2a_bypass_pass[i].name,
+				(char *)&q2a_bypass_pass[i].password,
+				(int *)&q2a_bypass_pass[i].level);
 
-	//read em in
-	fclose(f);
+			if ((elements == 3) && q2a_bypass_pass[i].level)
+				i++;
+		}
+		num_q2a_admins = i;
+		if (num_q2a_admins < MAX_ADMINS)
+			for (i = num_q2a_admins; i < MAX_ADMINS; i++)
+				q2a_bypass_pass[i].level = 0;
+
+		fclose(f);
+	}
+	else
+		gi.dprintf("WARNING: %s could not be found\n", name);
 }
 
-void ADMIN_players(edict_t *ent,int client)
+void ADMIN_players(edict_t *ent, int client)
 {
 	unsigned int i;
-	gi.cprintf(ent,PRINT_HIGH,"Players\n");
+	gi.cprintf(ent, PRINT_HIGH, "Players\n");
 	for (i = 0; i < maxclients->value; i++)
 	{
-	if (proxyinfo[i].inuse)
-	{
-			gi.cprintf(ent,PRINT_HIGH,"  %2i : %s\n",i,proxyinfo[i].name);
+		if (proxyinfo[i].inuse) 
+		{
+			gi.cprintf(ent, PRINT_HIGH, "  %2i : %s\n", i, proxyinfo[i].name);
+		}
 	}
-	}
-	gi.cprintf(ent,PRINT_HIGH,"*******************************\n");
+	gi.cprintf(ent, PRINT_HIGH, "*******************************\n");
 }
 
-void ADMIN_dumpmsec(edict_t *ent,int client)
+void ADMIN_dumpmsec(edict_t *ent, int client)
 {
 	unsigned int i;
-	gi.cprintf(ent,PRINT_HIGH,"MSEC\n");
+	gi.cprintf(ent, PRINT_HIGH, "MSEC\n");
 	for (i = 0; i < maxclients->value; i++)
 	{
-	if (proxyinfo[i].inuse)
-	{
-			gi.cprintf(ent,PRINT_HIGH,"  %2i : %-16s %d\n",i,proxyinfo[i].name,proxyinfo[i].msec_last);
+		if (proxyinfo[i].inuse) 
+		{
+			gi.cprintf(ent, PRINT_HIGH,	"  %2i : %-16s %d\n",
+				i, proxyinfo[i].name, proxyinfo[i].msec_last);
+		}
 	}
-	}
-	gi.cprintf(ent,PRINT_HIGH,"*******************************\n");
+	gi.cprintf(ent, PRINT_HIGH, "*******************************\n");
 }
 
 void ADMIN_dumpuser(edict_t *ent,int client,int user,qboolean check)
@@ -2114,11 +2112,11 @@ void whois_write_file(void)
 		strcpy(temp,whois_details[i].ip);
 		temp_len = strlen(temp);
 
-		//convert spaces to 0xff (\0xff)
+		//convert spaces to ÿ (0xff)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 0xff;
+				temp[j] = '\xff';
 		}
 		fprintf(f,"%i %s ",whois_details[i].id,temp);
 
@@ -2128,7 +2126,7 @@ void whois_write_file(void)
 		for (j=0; j<temp_len; j++)
 		{
 			if (temp[j] == ' ')
-				temp[j] = 0xff;
+				temp[j] = '\xff';
 		}
 		fprintf(f,"%s ",temp);
 
@@ -2142,13 +2140,13 @@ void whois_write_file(void)
 				for (k=0;k<temp_len;k++)
 				{
 					if (temp[k] == ' ')
-						temp[k] = 0xff;
+						temp[k] = '\xff';
 				}
 				fprintf(f,"%s ",temp);
 			}
 			else
 			{
-				fprintf(f,"0xff ");
+				fprintf(f,"\xff ");
 			}
 		}
 		fprintf(f,"\n");
@@ -2162,6 +2160,7 @@ void whois_read_file(void)
 	char	name[256];
 	unsigned int i,j;
 	int temp_len,name_len;
+	int elements;
 
 	sprintf(name, "%s/q2adminwhois.txt", moddir);
 
@@ -2175,7 +2174,7 @@ void whois_read_file(void)
 	WHOIS_COUNT = 0;
 	while ((!feof(f)) && (WHOIS_COUNT < whois_active))
 	{
-		fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
+		elements = fscanf(f, "%i %s %s %s %s %s %s %s %s %s %s %s %s",
 			&whois_details[WHOIS_COUNT].id,
 			(char *) &whois_details[WHOIS_COUNT].ip,
 			(char *) &whois_details[WHOIS_COUNT].seen,
@@ -2190,46 +2189,47 @@ void whois_read_file(void)
 			(char *) &whois_details[WHOIS_COUNT].dyn[8].name,
 			(char *) &whois_details[WHOIS_COUNT].dyn[9].name);
 		
-		//convert all 0xff back to spaces
-		temp_len = strlen(whois_details[WHOIS_COUNT].ip);
-		for(i=0; i<temp_len; i++)
+		if (elements == 13)
 		{
-			if(whois_details[WHOIS_COUNT].ip[i] == 0xff)
+			//convert all 0xff back to spaces
+			temp_len = strlen(whois_details[WHOIS_COUNT].ip);
+			for (i = 0; i < temp_len; i++)
 			{
-				whois_details[WHOIS_COUNT].ip[i] = ' ';
-			}
-		}
-
-		temp_len = strlen(whois_details[WHOIS_COUNT].seen);
-		for(i=0; i<temp_len; i++)
-		{
-			if(whois_details[WHOIS_COUNT].seen[i] == 0xff)
-			{
-				whois_details[WHOIS_COUNT].seen[i] = ' ';
-			}
-		}
-		
-		for (i=0; i<10; i++)
-		{
-			if ((whois_details[WHOIS_COUNT].dyn[i].name[0]==255)
-				|| (whois_details[WHOIS_COUNT].dyn[i].name[0]== -1) 
-				|| (whois_details[WHOIS_COUNT].dyn[i].name[0] == 0xff))
-			{
-				whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
-			}
-			else
-			{
-				name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
-				for(j=0; j<name_len; j++)
+				if (whois_details[WHOIS_COUNT].ip[i] == '\xff')
 				{
-					if(whois_details[WHOIS_COUNT].dyn[i].name[j] == 0xff)
+					whois_details[WHOIS_COUNT].ip[i] = ' ';
+				}
+			}
+
+			temp_len = strlen(whois_details[WHOIS_COUNT].seen);
+			for (i = 0; i < temp_len; i++)
+			{
+				if (whois_details[WHOIS_COUNT].seen[i] == '\xff')
+				{
+					whois_details[WHOIS_COUNT].seen[i] = ' ';
+				}
+			}
+
+			for (i = 0; i < 10; i++)
+			{
+				if (whois_details[WHOIS_COUNT].dyn[i].name[0] == '\xff')
+				{
+					whois_details[WHOIS_COUNT].dyn[i].name[0] = 0;
+				}
+				else
+				{
+					name_len = strlen(whois_details[WHOIS_COUNT].dyn[i].name);
+					for (j = 0; j < name_len; j++)
 					{
-						whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
+						if (whois_details[WHOIS_COUNT].dyn[i].name[j] == '\xff')
+						{
+							whois_details[WHOIS_COUNT].dyn[i].name[j] = ' ';
+						}
 					}
 				}
 			}
+			WHOIS_COUNT++;
 		}
-		WHOIS_COUNT++;
 	}
 	fclose(f);
 }
