@@ -69,14 +69,14 @@ char *impulsemessages[] =
     
 //===================================================================
 
-void generateRandomString(char *buffer, int length)
+void generateRandomString(char *str, int length)
 {
 	unsigned int index;
 	for(index = 0; index < length; index++)
 		{
-			buffer[index] = RANDCHAR();
+			str[index] = RANDCHAR();
 		}
-	buffer[index] = 0;
+	str[index] = 0;
 }
 
 qboolean checkImpulse(byte impulse)
@@ -298,7 +298,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		{
 			if (proxyinfo[client].msec_count == 500)
 			{
-				gi.cprintf(ent, PRINT_HIGH, "%3.2f fps\n", (float)proxyinfo[client].frames_count * 2);
+				gi.cprintf(ent, PRINT_HIGH, "%3.2f fps\n", (float)(proxyinfo[client].frames_count * 2.0));
 			}
 		}
 
@@ -509,8 +509,6 @@ void G_RunFrame(void)
 				{
 					if(reconnectlist[i].reconnecttimeout < ltime)
 						{
-							unsigned int j;
-							
 							// remove the retry list entry if needed...
 							for(j = 0; j < maxReconnectList; j++)
 								{
@@ -668,8 +666,6 @@ void G_RunFrame(void)
 										{
 											if(retrylist[i].retry >= 5)
 												{
-													unsigned int j;
-
 													// remove the retry list entry if needed...
 													for(j = 0; j < maxReconnectList; j++)
 														{

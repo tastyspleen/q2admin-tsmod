@@ -38,6 +38,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #pragma warning(disable : 4305)	// truncation from const double to float
 #if _MSC_VER > 1500
 #pragma warning(disable : 4996)	// disable warnings about deprecated CRT functions (_CRT_SECURE_NO_WARNINGS).
+#pragma warning(disable : 4459)	// declaration of 'var' hides global declaration.
 #endif
 
 #endif
@@ -46,10 +47,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
-/*
 #include <assert.h>
 #include <math.h>
-*/
 
 //QwazyWabbit// 
 // From VS2015 with linkage to Visual Studio platform toolset v140 or later
