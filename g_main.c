@@ -48,8 +48,10 @@ void *hdll = NULL;
 	#define DLLNAME "gamei386.real.so"
 #elif defined __x86_64__
 	#define DLLNAME "gamex86_64.real.so"
-#elif defined __arm__
+#elif defined __arm__ 
 	#define DLLNAME "gamearm.real.so"
+#elif defined __aarch64__
+	#define DLLNAME "gameaarch64.real.so"
 #else
 	#error Unknown architecture
 #endif
@@ -59,7 +61,7 @@ void *hdll = NULL;
 
 #elif defined(WIN32)
 HINSTANCE hdll;
-#define DLLNAME   "gamex86.real.dll"  // Not sure how this was suppsoed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
+#define DLLNAME   "gamex86.real.dll"  // Not sure how this was supposed to work, but it was loading itself and overwriting its own gi.vars when just called "gamex86.dll"
 #define DLLNAMEMODDIR "gamex86.real.dll"
 #else
 #error Unknown OS

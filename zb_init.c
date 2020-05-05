@@ -724,7 +724,7 @@ qboolean UpdateInternalClientInfo(int client, edict_t *ent, char *userinfo, qboo
 								
 							proxyinfo[client].ipaddressBinary[i] = num;
 							
-							while(isdigit(*ip))
+							while(isdigit((int)*ip))
 								{
 									ip++;
 								}
