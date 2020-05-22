@@ -1296,7 +1296,7 @@ typedef struct
 	int   level;
 } admin_type;
 
-#define Q2ADMINVERSION   "1.17.44-tsmod-2"
+#define Q2ADMINVERSION   "1.17.45-tsmod-2"
 #define DEFAULTQ2AVER   "1.0"
 #define DEFAULTQ2AMSG   "\nThis server requires %s anti cheat client.\n"
 #define MAX_ADMINS    128
