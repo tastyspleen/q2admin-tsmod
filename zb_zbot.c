@@ -180,7 +180,7 @@ int checkForOverflows(edict_t *ent, int client)
 					removeClientCommand(client, QCMD_ZPROXYCHECK2);
 					addCmdQueue(client, QCMD_RESTART, 2 + (5 * random()), 0, 0);
 					
-					sprintf(checkmask1, "I(%d) Exp(%s) (%s) (overflow detected)", proxyinfo[client].charindex, proxyinfo[client].teststr, buffer);
+					snprintf(checkmask1, sizeof checkmask1 - 1, "I(%d) Exp(%s) (%s) (overflow detected)", proxyinfo[client].charindex, proxyinfo[client].teststr, buffer);
 					logEvent(LT_INTERNALWARN, client, ent, checkmask1, IW_OVERFLOWDETECT, 0.0);
 					break;
 				}
