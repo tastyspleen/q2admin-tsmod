@@ -231,12 +231,9 @@ game_export_t *GetGameAPI(game_import_t *import)
 	zbot_testchar2 = '0' + (int)(9.9 * random());
 	
 #ifdef __GNUC__
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-overflow"
 	loadtype = soloadlazy ? RTLD_LAZY : RTLD_NOW;
 	sprintf(dllname, "%s/%s", moddir, DLLNAME);
 	hdll = dlopen(dllname, loadtype);
-#pragma GCC diagnostic pop
 #elif defined(WIN32)
 	if (quake2dirsupport)
 		{
@@ -260,12 +257,9 @@ game_export_t *GetGameAPI(game_import_t *import)
 #elif defined(WIN32)
 			hdll = LoadLibrary(dllname);
 #endif
-
+			
 #ifdef __GNUC__
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wformat-overflow"
 			sprintf(dllname, "%s/%s", moddir, DLLNAME);
-#pragma GCC diagnostic pop
 #elif defined(WIN32)
 			if (quake2dirsupport)
 				{
