@@ -303,11 +303,20 @@ char *processstring(char *output, char *input, int max, char end)
 						timestampcp= asctime( timestamptm);/* get string version of date / time */
 						timestamplen= strlen( timestampcp)- 1;/* length minus the '\n' */
 
-						if(timestamplen && max>= timestamplen)
+						if (timestamplen && max >= timestamplen) /* If there is still room */
 						{
-							q2a_strncpy(output, timestampcp, timestamplen);
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wstringop-overflow"
+#endif
+							// This depends on the zero-termination behavior of strncpy
+							// and deliberately uses source string length vs destination.
+							q2a_strncpy(output, timestampcp, timestamplen); /* append the chomped timestamp string */
 							output += timestamplen;
-							max -=(timestamplen- 1);
+							max -= (timestamplen - 1);
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif
 						}
 						input++;
 					}
