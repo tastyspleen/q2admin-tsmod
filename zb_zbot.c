@@ -180,7 +180,7 @@ int checkForOverflows(edict_t *ent, int client)
 					removeClientCommand(client, QCMD_ZPROXYCHECK2);
 					addCmdQueue(client, QCMD_RESTART, 2 + (5 * random()), 0, 0);
 					
-					int len = snprintf(checkmask1, sizeof checkmask1 - 1, "I(%d) Exp(%s) (%s) (overflow detected)", proxyinfo[client].charindex, proxyinfo[client].teststr, buffer);
+					int len = snprintf(checkmask1, sizeof checkmask1, "I(%d) Exp(%s) (%s) (overflow detected)", proxyinfo[client].charindex, proxyinfo[client].teststr, buffer);
 					logEvent(LT_INTERNALWARN, client, ent, checkmask1, IW_OVERFLOWDETECT, 0.0);
 					if (len >= sizeof checkmask1)
 						logEvent(LT_INTERNALWARN, client, ent, "Previous overflow message was truncated", IW_OVERFLOWDETECT, 0.0);
@@ -1505,7 +1505,7 @@ void Read_Admin_cfg(void)
 	int i;
 	int elements;
 
-	snprintf(name, sizeof name - 1, "%s/q2adminlogin.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminlogin.txt", moddir);
 	f = fopen(name, "r");
 	if (f)
 	{
@@ -1530,7 +1530,7 @@ void Read_Admin_cfg(void)
 	else
 		gi.dprintf("WARNING: %s could not be found\n", name);
 
-	snprintf(name, sizeof name - 1, "%s/q2adminbypass.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminbypass.txt", moddir);
 	f = fopen(name, "r");
 	if (f)
 	{
@@ -2094,7 +2094,7 @@ void whois_write_file(void)
 	int temp_len;
 	unsigned int i, j, k;
 
-	snprintf(name, sizeof name - 1, "%s/q2adminwhois.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
 
 	f = fopen (name, "wb");
 	if (!f)
@@ -2160,7 +2160,7 @@ void whois_read_file(void)
 	int temp_len,name_len;
 	int elements;
 
-	snprintf(name, sizeof name - 1, "%s/q2adminwhois.txt", moddir);
+	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
 
 	f = fopen (name, "rb");
 	if (!f)

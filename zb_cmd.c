@@ -2534,20 +2534,22 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 
 	if (*(rcon_password->string))
 	{
-			if (strstr(response, rcon_password->string))
-			{
-					//gi.cprintf(NULL, PRINT_HIGH, "%s: Tried to run disabledcommand: (%s)\n", proxyinfo[client].name, response);
-					//logEvent(LT_DISABLECMD, getEntOffset(ent) - 1, ent,response, 0, 0.0);
-					//stuffcmd(ent, "echo YOU HAVE BEEN LOGGED FOR THAT ACTION!!!!\n");
+		if (strstr(response, rcon_password->string))
+		{
+			//gi.cprintf(NULL, PRINT_HIGH, "%s: Tried to run disabledcommand: (%s)\n", proxyinfo[client].name, response);
+			//logEvent(LT_DISABLECMD, getEntOffset(ent) - 1, ent,response, 0, 0.0);
+			//stuffcmd(ent, "echo YOU HAVE BEEN LOGGED FOR THAT ACTION!!!!\n");
 
-					//r1ch: buffer overflow fix
-					snprintf(abuffer, sizeof(abuffer)-1, "EXPLOIT - %s", response);
-					abuffer[sizeof(abuffer)-1] = 0;
-					logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
-					gi.dprintf("%s\n",abuffer);
-	                
-					return FALSE;
-			}
+			//r1ch: buffer overflow fix
+			int len = snprintf(abuffer, sizeof abuffer - 1, "EXPLOIT - %s", response);
+			abuffer[sizeof abuffer - 1] = 0;
+			logEvent(LT_ADMINLOG, client, ent, abuffer, 0, 0.0);
+			if (len >= sizeof abuffer)
+				logEvent(LT_INTERNALWARN, client, ent, "Previous log message was truncated.", IW_OVERFLOWDETECT, 0.0);
+			gi.dprintf("%s\n", abuffer);
+
+			return FALSE;
+		}
 	}
 //*** UPDATE END ***
 	
