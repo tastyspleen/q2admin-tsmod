@@ -390,15 +390,11 @@ int getLastLine(char *buffer, FILE*dumpfile, long*fpos)
 }
 
 
-void q_strupr(char *c)
+void q_strupr(char* c)
 {
-	while(*c)
-		{
-			if(islower((*c)))
-				{
-					*c = toupper((*c));
-				}
-				
-			c++;
-		}
+	while (*c)
+	{
+		*c = toupper((*c));
+		c++;
+	}
 }
