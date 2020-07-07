@@ -819,7 +819,7 @@ extern game_export_t globals;
 extern game_export_t *dllglobals;
 extern cvar_t   *rcon_password, *gamedir, *maxclients, *logfile, *rconpassword, *port, *q2admintxt, *q2adminbantxt; // UPDATE
 
-extern char    dllname[256];
+extern char    dllname[512];
 extern char    zbotuserdisplay[256];
 extern char    timescaleuserdisplay[256];
 extern char    hackuserdisplay[256];

@@ -36,7 +36,7 @@ cvar_t  *rcon_password, *gamedir, *maxclients, *logfile, *rconpassword, *port, *
 
 qboolean quake2dirsupport = TRUE;
 
-char dllname[256];
+char dllname[512];
 char gmapname[MAX_QPATH];
 
 //*** UPDATE START ***
