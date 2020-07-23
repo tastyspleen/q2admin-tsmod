@@ -249,84 +249,87 @@ int isBlank(char *buff1)
 }
 
 
-char *processstring(char *output, char *input, int max, char end)
+char* processstring(char* output, char* input, int max, char end)
 {
 
-	while( *input && *input != end && max)
+	while (*input && *input != end && max)
+	{
+		if (*input == '\\')
 		{
-			if( *input == '\\')
+			input++;
+
+			if ((*input == 'n') || (*input == 'N'))
+			{
+				*output++ = '\n';
+				input++;
+			}
+			else if ((*input == 'd') || (*input == 'D'))
+			{
+				*output++ = '$';
+				input++;
+			}
+			else if ((*input == 'q') || (*input == 'Q'))
+			{
+				*output++ = '\"';
+				input++;
+			}
+			else if ((*input == 's') || (*input == 'S'))
+			{
+				*output++ = ' ';
+				input++;
+			}
+			else if ((*input == 'm') || (*input == 'M'))
+			{
+				int modlen = strlen(moddir);
+				if (max >= modlen && modlen)
 				{
-					input++;
-					
-					if((*input == 'n') || (*input == 'N'))
-					{
-						*output++ = '\n';
-						input++;
-					}
-					else if((*input == 'd') || (*input == 'D'))
-					{
-						*output++ = '$';
-						input++;
-					}
-					else if((*input == 'q') || (*input == 'Q'))
-					{
-						*output++ = '\"';
-						input++;
-					}
-					else if((*input == 's') || (*input == 'S'))
-					{
-						*output++ = ' ';
-						input++;
-					}
-					else if((*input == 'm') || (*input == 'M'))
-					{
-						int modlen = strlen(moddir);
-						if(max >= modlen && modlen)
-							{
-								q2a_strcpy(output, moddir);
-								output += modlen;
-								max -=(modlen- 1);
-							}
-						input++;
-					}
-					else if((*input == 't') || (*input == 'T'))
-					{
-						struct tm*timestamptm;
-						time_t timestampsec;
-						char *timestampcp;
-						int timestamplen;
-
-						time(&timestampsec);/* Get time in seconds */
-						timestamptm= localtime(&timestampsec);/* Convert time to struct */
-						/* tm form */
-
-						timestampcp= asctime( timestamptm);/* get string version of date / time */
-						timestamplen= strlen( timestampcp)- 1;/* length minus the '\n' */
-
-						if(timestamplen && max>= timestamplen)
-						{
-							q2a_strncpy(output, timestampcp, timestamplen);
-							output += timestamplen;
-							max -=(timestamplen- 1);
-						}
-						input++;
-					}
-					else
-					{
-						*output++ = *input++;
-					}
-						
-					max--;
+					q2a_strcpy(output, moddir);
+					output += modlen;
+					max -= (modlen - 1);
 				}
+				input++;
+			}
+			else if ((*input == 't') || (*input == 'T'))
+			{
+				struct tm* timestamptm;
+				time_t timestampsec;
+				char* timestampcp;
+				int timestamplen;
+				char timestr[32];
+
+				time(&timestampsec);/* Get time in seconds */
+				timestamptm = localtime(&timestampsec);/* Convert time to struct */
+				/* tm form */
+
+				timestampcp = asctime(timestamptm);/* get string version of date / time */
+				timestamplen = strlen(timestampcp) - 1;/* length minus the '\n' */
+
+				if (timestamplen && max >= timestamplen)
+				{
+					strncpy(timestr, timestampcp, sizeof timestr);
+					timestr[timestamplen] = '\0';
+					strcpy(output, timestr);
+					output += timestamplen;
+					max -= (timestamplen - 1);
+				}
+				input++;
+			}
 			else
-				{
-					*output++ = *input++;
-					max--;
-				}
+			{
+				*output++ = *input++;
+			}
+
+			max--;
 		}
-		
+		else
+		{
+			*output++ = *input++;
+			max--;
+		}
+	}
+
 	*output = 0x0;
-	
+
 	return input;
 }
 
@@ -390,15 +393,11 @@ int getLastLine(char *buffer, FILE*dumpfile, long*fpos)
 }
 
 
-void q_strupr(char *c)
+void q_strupr(char* c)
 {
-	while(*c)
-		{
-			if(islower((*c)))
-				{
-					*c = toupper((*c));
-				}
-				
-			c++;
-		}
+	while (*c)
+	{
+		*c = toupper((*c));
+		c++;
+	}
 }

@@ -4835,7 +4835,7 @@ regmatch_t pmatch[];
 int eflags;
 {
 	int ret;
-	struct re_registers regs;
+	struct re_registers regs = { 0 };
 	regex_t private_preg;
 	int len= q2a_strlen(string);
 	boolean want_reg_info = !preg->no_sub && nmatch> 0;

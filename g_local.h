@@ -819,7 +819,7 @@ extern game_export_t globals;
 extern game_export_t *dllglobals;
 extern cvar_t   *rcon_password, *gamedir, *maxclients, *logfile, *rconpassword, *port, *q2admintxt, *q2adminbantxt; // UPDATE
 
-extern char    dllname[256];
+extern char    dllname[512];
 extern char    zbotuserdisplay[256];
 extern char    timescaleuserdisplay[256];
 extern char    hackuserdisplay[256];
@@ -1296,7 +1296,7 @@ typedef struct
 	int   level;
 } admin_type;
 
-#define Q2ADMINVERSION   "1.17.44-tsmod-2"
+#define Q2ADMINVERSION   "1.17.45-tsmod-2"
 #define DEFAULTQ2AVER   "1.0"
 #define DEFAULTQ2AMSG   "\nThis server requires %s anti cheat client.\n"
 #define MAX_ADMINS    128

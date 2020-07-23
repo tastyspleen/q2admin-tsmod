@@ -10,7 +10,7 @@
 ;
 ; Enable/disable main zbot detection.
 ;
-zbotdetect  "Yes"
+zbotdetect  "No"
 
 ;
 ; Quake2 Client Admin password.
@@ -65,7 +65,7 @@ disconnectuser "Yes"
 ;
 ; Display user is a zbot to the rest of the server
 ;
-displayzbotuser "Yes"
+displayzbotuser "No"
 
 ;
 ; Number of times to display the user is using a zbot?
