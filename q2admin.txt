@@ -14,7 +14,7 @@ zbotdetect  "No"
 
 ;
 ; Quake2 Client Admin password.
-; To enable uncomment and change the password to something else.
+; To enable, uncomment and change the password to something else.
 ;
 ;adminpassword "secret"
 
@@ -44,7 +44,7 @@ setmotd ""
 zbotdetectactivetimeout "0"
 
 ;
-; When zbotdetectactivetimeout is -1 this value is used to genterate a random time between 
+; When zbotdetectactivetimeout is -1 this value is used to generate a random time between 
 ; 5 seconds to 5 seconds + randomwaitreporttime seconds.
 ; e.g. 55 means 5 seconds to 60 seconds
 ;
@@ -100,7 +100,7 @@ customclientcmd ""
 ; sending commands.  Sort of like a back-up method of detecting zbot users.  The only problem is that
 ; normal clients can generate impulses as well and I don't know if this is for commanding the zbot
 ; or something that a normal q2 mod uses.  Only 1 q2 mod that I know off uses impulses tho so chances 
-; are that it's a abot user.
+; are that it's a bot user.
 ; 
 ; zbot impulses:
 ; - Impulse 169 : toggle menu
@@ -643,14 +643,14 @@ checkvar_poll_time  "60"
 
 ;
 ; Changes the rcon password to some random string for the lrcon command.  This prevents
-; people from discovering the real rcon password through dumpping packets.
+; people from discovering the real rcon password through dumping packets.
 ;
 rcon_random_password "Yes"
 
 
 ;
 ; Timeout, when rcon_random_password is set to "Yes", for how long lrcon command is
-; timed out before the rcon password is set back to the orginal value.
+; timed out before the rcon password is set back to the original value.
 ;
 lrcon_timeout "2"
 

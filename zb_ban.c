@@ -2084,7 +2084,7 @@ void displayNextBan(edict_t *ent, int client, long bannum)
 				
 			if(findentry->timeout)
 				{
-					sprintf(buffer + q2a_strlen(buffer), " TIME %g", (findentry->timeout - ltime) / 60.0);
+					sprintf(buffer + q2a_strlen(buffer), " TIME %g", (findentry->timeout - ltime) / 60.0f);
 				}
 				
 			gi.cprintf (ent, PRINT_HIGH, "%s\n", buffer);
