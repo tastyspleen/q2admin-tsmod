@@ -1,5 +1,5 @@
 
-Version: q2admin1.17.44-tsmod-2
+Version: q2admin1.17.46-tsmod-2
 
 This is Q2Admin with R1CH's security patches applied, and a couple tweaks
 to prevent kicking of players for false positives (Q2Admin would think a
@@ -4047,8 +4047,8 @@ v1.1 Beta 4    - 4 March     - Allow mute for 0 seconds to unmute someone.
                              - Fixed bugs where the say_person / say_group commands wheren't being logged 
                                in to the chat log.
                              - Changed chat flood protection so that there is a global chat flood protection 
-                               and a client chat flood protection.  The client overrides the global if it is 
-                               set.  If it isn't then the global settings are used.
+                               and a client chat flood protection.Â  The client overrides the global if it is 
+                               set.Â  If it isn't then the global settings are used.
                              - Added chat flood protection settings to include ban. This sets the clients 
                                chat flood protection.
                              - Added clientchatfloodprotect command to the server console / client admin 
@@ -4068,14 +4068,14 @@ v1.1 Beta 5    - 11 March    - Fixed bug where the admin client commands that us
                                didn't work correctly.   This included stuff, say_person and say_group server 
                                admin commands.
                              - Improved support for non-standard console chat in the chat flood protection / 
-                               muting commands.   The only mod so far that I know does this is LMCTF.
+                               muting commands. Â  The only mod so far that I know does this is LMCTF.
 v1.1 Beta 6    - 28 March    - Fixed major problems with the zbot detection feature turned off.
                              - Minor changes to internal features.
 v1.1           - 12 April    - Fixed some internal house-keeping bugs.
-                             - Added support for a different method for generating chat messages.  Adds 
+                             - Added support for a different method for generating chat messages.Â  Adds 
                                support for OSP and any other mod that uses this method for generating 
                                chat messages.
-                             - Renamed q2admin.cfg to q2admin.txt.  This is the make sure that 
+                             - Renamed q2admin.cfg to q2admin.txt.Â  This is the make sure that 
                                q2admin.txt will not be exec'd.
                              - Fixed bug with 'chatfloodprotect' causing a 'SZ_GetSpace: overflow without 
                                allowoverflow set' error.
@@ -4117,7 +4117,7 @@ v1.2 Beta 8    - 28 August   - Added include file support for in banfiles.
 v1.2 Beta 9    - 29 August   - Updated the 'ratbot detect test' to support v2.25 of the ratbot.
 v1.2 Beta 10   - 25 September- Fixed linux clib problem (this fixes the chasm cam problem with the 
                                ServerConfigMod and the Includes in ban files problem).
-                             - Fixed chatflood problem.  This fixes the crash with Superheros2.
+                             - Fixed chatflood problem.Â  This fixes the crash with Superheros2.
                              - Added more warning printouts when bans / chatbans / flood protection / disabled 
                                spawns / voting lines fail.
                              - Fixed change level problems with nitro2 and bw-proxy and reduced the change
