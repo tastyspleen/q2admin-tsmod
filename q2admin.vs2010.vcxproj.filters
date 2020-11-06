@@ -132,4 +132,12 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="q2adminbypass.txt">
+      <Filter>Configuration Files</Filter>
+    </Text>
+    <Text Include="q2adminlogin.txt">
+      <Filter>Configuration Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
