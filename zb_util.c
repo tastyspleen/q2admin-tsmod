@@ -103,8 +103,8 @@ key and returns the associated value, or an empty string.
 */
 char *Info_ValueForKey(char *s, char *key)
 {
-	char pkey[512];
-	static char value[2][512];// use two buffers so compares
+	char pkey[MAX_INFO_STRING] = { 0 };
+	static char value[2][MAX_INFO_STRING];// use two buffers so compares
 	// work without stomping on each other
 	static int valueindex;
 	char *o;
@@ -280,7 +280,7 @@ char* processstring(char* output, char* input, int max, char end)
 			}
 			else if ((*input == 'm') || (*input == 'M'))
 			{
-				int modlen = strlen(moddir);
+				int modlen = (int)strlen(moddir);
 				if (max >= modlen && modlen)
 				{
 					q2a_strcpy(output, moddir);
@@ -293,8 +293,8 @@ char* processstring(char* output, char* input, int max, char end)
 			{
 				struct tm* timestamptm;
 				time_t timestampsec;
-				char* timestampcp;
-				int timestamplen;
+				char* timestampcp = NULL;
+				size_t timestamplen;
 				char timestr[32];
 
 				time(&timestampsec);/* Get time in seconds */
@@ -302,15 +302,18 @@ char* processstring(char* output, char* input, int max, char end)
 				/* tm form */
 
 				timestampcp = asctime(timestamptm);/* get string version of date / time */
-				timestamplen = strlen(timestampcp) - 1;/* length minus the '\n' */
+				if (timestampcp) /* Cover case of asctime failure */
+					timestamplen = strlen(timestampcp) - 1;/* length minus the '\n' */
+				else
+					timestamplen = 0;
 
-				if (timestamplen && max >= timestamplen)
+				if (timestampcp && timestamplen && max >= timestamplen)
 				{
 					strncpy(timestr, timestampcp, sizeof timestr);
 					timestr[timestamplen] = '\0';
 					strcpy(output, timestr);
 					output += timestamplen;
-					max -= (timestamplen - 1);
+					max -= ((int)timestamplen - 1);
 				}
 				input++;
 			}

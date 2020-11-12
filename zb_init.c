@@ -387,13 +387,13 @@ void InitGame (void)
 	logfile = gi.cvar ("logfile", "0", 0);
 	rconpassword = gi.cvar("rcon_password", "", 0);
 	proxyinfoBase = gi.TagMalloc ((maxclients->value + 1) * sizeof(proxyinfo_t), TAG_GAME);
-	q2a_memset(proxyinfoBase, 0x0, (maxclients->value + 1) * sizeof(proxyinfo_t));
+	q2a_memset(proxyinfoBase, 0x0, ((size_t)maxclients->value + 1) * sizeof(proxyinfo_t));
 	proxyinfo = proxyinfoBase;
 	proxyinfo += 1;
 	proxyinfo[-1].inuse = 1;
 	
 	reconnectproxyinfo = gi.TagMalloc (maxclients->value  * sizeof(proxyreconnectinfo_t), TAG_GAME);
-	q2a_memset(reconnectproxyinfo, 0x0, maxclients->value * sizeof(proxyreconnectinfo_t));
+	q2a_memset(reconnectproxyinfo, 0x0, (size_t)maxclients->value * sizeof(proxyreconnectinfo_t));
 	
 	reconnectlist = (reconnect_info *)gi.TagMalloc (maxclients->value * sizeof(reconnect_info), TAG_GAME);
 	maxReconnectList = 0;
@@ -579,7 +579,7 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 						{
 							currentlen = q2a_strlen(buffer);
 							
-							if(len + currentlen > sizeof(motd))
+							if((size_t)len + currentlen > sizeof(motd))
 								{
 									break;
 								}

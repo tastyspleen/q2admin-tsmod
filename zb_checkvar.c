@@ -68,7 +68,7 @@ qboolean ReadCheckVarFile(char *checkvarname)
 	while(fgets(buffer, 256, checkvarfile))
 		{
 			char *cp = buffer;
-			int len;
+			size_t len;
 			
 			// remove '\n'
 			len = q2a_strlen(buffer);
