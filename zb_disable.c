@@ -74,7 +74,7 @@ qboolean ReadDisableFile(char *disablename)
 			int len;
 			
 			// remove '\n'
-			len = q2a_strlen(buffer) - 1;
+			len = (int)q2a_strlen(buffer) - 1;
 			if(buffer[len] == '\n')
 				{
 					buffer[len] = 0x0;
@@ -105,7 +105,7 @@ qboolean ReadDisableFile(char *disablename)
 					cp += 3;
 					SKIPBLANK(cp);
 					
-					len = q2a_strlen(cp) + 1;
+					len = (int)q2a_strlen(cp) + 1;
 					
 					// zero length command
 					if(!len)
@@ -333,7 +333,7 @@ void disablecmdRun(int startarg, edict_t *ent, int client)
 			return;
 		}
 		
-	len = q2a_strlen(cmd) + 20;
+	len = (int)q2a_strlen(cmd) + 20;
 	
 	disablecmds[maxdisable_cmds].disablecmd = gi.TagMalloc (len, TAG_LEVEL);
 	processstring(disablecmds[maxdisable_cmds].disablecmd, cmd, len - 1, 0);

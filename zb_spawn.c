@@ -412,7 +412,7 @@ void spawncmdRun(int startarg, edict_t *ent, int client)
 
 void spawnDelRun(int startarg, edict_t *ent, int client)
 {
-	int spawn;
+	size_t	spawn;
 	
 	if (gi.argc() <= startarg)
 		{

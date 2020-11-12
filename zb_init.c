@@ -577,7 +577,7 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 					len = 0;
 					while(fgets(buffer, 256, motdptr))
 						{
-							currentlen = q2a_strlen(buffer);
+							currentlen = (int)q2a_strlen(buffer);
 							
 							if((size_t)len + currentlen > sizeof(motd))
 								{

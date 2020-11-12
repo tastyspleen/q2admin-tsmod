@@ -74,7 +74,7 @@ qboolean ReadFloodFile(char *floodname)
 			uptoLine++;
 			
 			// remove '\n'
-			len = q2a_strlen(buffer) - 1;
+			len = (int)q2a_strlen(buffer) - 1;
 			if(buffer[len] == '\n')
 				{
 					buffer[len] = 0x0;
@@ -103,7 +103,7 @@ qboolean ReadFloodFile(char *floodname)
 					cp += 3;
 					SKIPBLANK(cp);
 					
-					len = q2a_strlen(cp) + 1;
+					len = (int)q2a_strlen(cp) + 1;
 					
 					// zero length command
 					if(!len)
@@ -790,7 +790,7 @@ void floodcmdRun(int startarg, edict_t *ent, int client)
 			return;
 		}
 		
-	len = q2a_strlen(cmd) + 20;
+	len = (int)q2a_strlen(cmd) + 20;
 	
 	floodcmds[maxflood_cmds].floodcmd = gi.TagMalloc (len, TAG_LEVEL);
 	processstring(floodcmds[maxflood_cmds].floodcmd, cmd, len - 1, 0);
