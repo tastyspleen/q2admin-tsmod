@@ -47,7 +47,7 @@ spawncmd_t;
 #define SPAWN_RE  2
 
 spawncmd_t spawncmds[SPAWN_MAXCMDS];
-int maxspawn_cmds = 0;
+long long maxspawn_cmds = 0;
 
 
 
@@ -181,7 +181,7 @@ void freeSpawnLists(void)
 
 void freeOneLevelSpawnLists(void)
 {
-	int spawn = 0;
+	long long spawn = 0;
 	
 	while(spawn < maxspawn_cmds)
 		{
