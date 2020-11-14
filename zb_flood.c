@@ -871,7 +871,7 @@ void floodDelRun(int startarg, edict_t *ent, int client)
 		
 	if(flood + 1 < maxflood_cmds)
 		{
-			q2a_memmove((floodcmds + flood), (floodcmds + flood + 1), sizeof(floodcmd_t) * (maxflood_cmds - flood));
+			q2a_memmove((floodcmds + flood), (floodcmds + flood + 1), sizeof(floodcmd_t) * ((size_t)maxflood_cmds - flood));
 		}
 		
 	maxflood_cmds--;

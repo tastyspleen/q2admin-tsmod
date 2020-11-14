@@ -559,7 +559,7 @@ void lrconDelRun(int startarg, edict_t *ent, int client)
 		
 	if(lrcon + 1 < maxlrcon_cmds)
 		{
-			q2a_memmove((lrconcmds + lrcon), (lrconcmds + lrcon + 1), sizeof(lrconcmd_t) * (maxlrcon_cmds - lrcon));
+			q2a_memmove((lrconcmds + lrcon), (lrconcmds + lrcon + 1), sizeof(lrconcmd_t) * ((size_t)maxlrcon_cmds - lrcon));
 		}
 		
 	maxlrcon_cmds--;
