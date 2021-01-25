@@ -274,9 +274,15 @@ game_export_t *GetGameAPI(game_import_t *import)
 			
 			if (hdll == NULL)
 				{
-					gi.dprintf ("Unable to load DLL %s.\n", dllname);
+#if defined(WIN32)
+				unsigned long stat = GetLastError();
+				gi.dprintf("Unable to load DLL %s, error %u.\n", dllname, stat);
 					return &globals;
-				}
+#else
+				gi.dprintf("Unable to load DLL %s.\n", dllname);
+					return &globals;
+#endif
+			}
 			else
 				{
 					gi.dprintf ("Unable to load DLL %s, loading baseq2 DLL.\n", dllname);

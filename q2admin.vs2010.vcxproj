@@ -617,6 +617,10 @@
   <ItemGroup>
     <ResourceCompile Include="zbot.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="q2adminbypass.txt" />
+    <Text Include="q2adminlogin.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

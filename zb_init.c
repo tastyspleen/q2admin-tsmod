@@ -387,13 +387,13 @@ void InitGame (void)
 	logfile = gi.cvar ("logfile", "0", 0);
 	rconpassword = gi.cvar("rcon_password", "", 0);
 	proxyinfoBase = gi.TagMalloc ((maxclients->value + 1) * sizeof(proxyinfo_t), TAG_GAME);
-	q2a_memset(proxyinfoBase, 0x0, (maxclients->value + 1) * sizeof(proxyinfo_t));
+	q2a_memset(proxyinfoBase, 0x0, ((size_t)maxclients->value + 1) * sizeof(proxyinfo_t));
 	proxyinfo = proxyinfoBase;
 	proxyinfo += 1;
 	proxyinfo[-1].inuse = 1;
 	
 	reconnectproxyinfo = gi.TagMalloc (maxclients->value  * sizeof(proxyreconnectinfo_t), TAG_GAME);
-	q2a_memset(reconnectproxyinfo, 0x0, maxclients->value * sizeof(proxyreconnectinfo_t));
+	q2a_memset(reconnectproxyinfo, 0x0, (size_t)maxclients->value * sizeof(proxyreconnectinfo_t));
 	
 	reconnectlist = (reconnect_info *)gi.TagMalloc (maxclients->value * sizeof(reconnect_info), TAG_GAME);
 	maxReconnectList = 0;
@@ -577,9 +577,9 @@ void SpawnEntities (char *mapname, char *entities, char *spawnpoint)
 					len = 0;
 					while(fgets(buffer, 256, motdptr))
 						{
-							currentlen = q2a_strlen(buffer);
+							currentlen = (int)q2a_strlen(buffer);
 							
-							if(len + currentlen > sizeof(motd))
+							if((size_t)len + currentlen > sizeof(motd))
 								{
 									break;
 								}
@@ -1217,7 +1217,7 @@ qboolean ClientConnect (edict_t *ent, char *userinfo)
 	return ret;
 }
 
-
+// Returns true if name has not changed.
 qboolean checkForNameChange(int client, edict_t *ent, char *userinfo)
 {
 	char *s = Info_ValueForKey (userinfo, "name");
@@ -1488,25 +1488,27 @@ void ClientUserinfoChanged (edict_t *ent, char *userinfo)
 //	srv_ip = gi.cvar("ip", "0.0.0.0", 0);
 //	gi.bprintf (PRINT_HIGH, "DEBUG: %s\n", srv_ip->string);
 
+	//QwazyWabbit
+	// This section computes userinfo changes per minute (USERINFOCHANGE_TIME).
+	// If we exceed USERINFOCHANGE_COUNT within that time then kick the user for flooding.
 	proxyinfo[client].userinfo_changed_count++;
-	//gi.bprintf(PRINT_HIGH,"userinfo %d\n",proxyinfo[client].userinfo_changed_count);
-	if (proxyinfo[client].userinfo_changed_count>USERINFOCHANGE_COUNT)
+	//gi.bprintf(PRINT_HIGH, "%s userinfo change %d\n", proxyinfo[client].name, proxyinfo[client].userinfo_changed_count);
+	temp = ltime - proxyinfo[client].userinfo_changed_start;
+	if (proxyinfo[client].userinfo_changed_count > USERINFOCHANGE_COUNT)
 	{
-		temp = ltime - proxyinfo[client].userinfo_changed_start;
-		if (temp<USERINFOCHANGE_TIME)
+		if (temp > USERINFOCHANGE_TIME)
 		{
-			gi.bprintf (PRINT_HIGH, "%s tried to flood the server (2)\n", proxyinfo[client].name);
-			sprintf(tmptext, "kick %d\n", client);
-			gi.AddCommandString(tmptext);
-		}
-		else
-		{
-			//enuf time passed, reset count
+			// Enough time passed, reset count
 			proxyinfo[client].userinfo_changed_count = 0;
 			proxyinfo[client].userinfo_changed_start = ltime;
 		}
+		else
+		{
+			gi.bprintf(PRINT_HIGH, "%s tried to flood the server (2)\n", proxyinfo[client].name);
+			sprintf(tmptext, "kick %d\n", client);
+			gi.AddCommandString(tmptext);
+		}
 	}
-
 	// 1.32e - 1.32e1 change
 	//	if (strcmp(proxyinfo[client].userinfo, userinfo)!=0)
 	//	{

@@ -2904,7 +2904,7 @@ qboolean doClientCommand(edict_t *ent, int client, qboolean *checkforfloodafter)
 	if(Q_stricmp (cmd, "say") == 0 || Q_stricmp (cmd, "say_team") == 0 || Q_stricmp (cmd, "say_world") == 0)
 	{
 		strcpy(stemp,gi.args());
-		slen = strlen(stemp);
+		slen = (int)strlen(stemp);
 		cnt = 0;
 		for (i = 0; i < slen; i++)
 		{
@@ -4005,9 +4005,9 @@ void zbotmotdRun(int startarg, edict_t *ent, int client)
 					len = 0;
 					while(fgets(buffer, 256, motdptr))
 						{
-							currentlen = q2a_strlen(buffer);
+							currentlen = (int)q2a_strlen(buffer);
 							
-							if(len + currentlen > sizeof(motd))
+							if(len + currentlen > (int)sizeof(motd))
 								{
 									break;
 								}

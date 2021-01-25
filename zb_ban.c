@@ -450,7 +450,7 @@ qboolean ReadBanFile(char *bfname)
 									SKIPBLANK(cp);
 									
 									
-									num = q2a_strlen(buffer2);
+									num = (int)q2a_strlen(buffer2);
 									
 									if(num)
 										{
@@ -592,7 +592,7 @@ qboolean ReadBanFile(char *bfname)
 									SKIPBLANK(cp);
 									
 									
-									num = q2a_strlen(buffer2);
+									num = (int)q2a_strlen(buffer2);
 									
 									if(num)
 										{
@@ -1473,7 +1473,7 @@ void banRun(int startarg, edict_t *ent, int client)
 			// copy MSG
 			processstring(buffer2, cp, sizeof(buffer2) - 1, '\"');
 			
-			num = q2a_strlen(buffer2);
+			num = (int)q2a_strlen(buffer2);
 			
 			if(num)
 				{
@@ -2084,7 +2084,7 @@ void displayNextBan(edict_t *ent, int client, long bannum)
 				
 			if(findentry->timeout)
 				{
-					sprintf(buffer + q2a_strlen(buffer), " TIME %g", (findentry->timeout - ltime) / 60.0);
+					sprintf(buffer + q2a_strlen(buffer), " TIME %g", (findentry->timeout - ltime) / 60.0f);
 				}
 				
 			gi.cprintf (ent, PRINT_HIGH, "%s\n", buffer);
@@ -2297,7 +2297,7 @@ void chatbanRun(int startarg, edict_t *ent, int client)
 			// copy MSG
 			processstring(buffer2, cp, sizeof(buffer2) - 1, '\"');
 			
-			num = q2a_strlen(buffer2);
+			num = (int)q2a_strlen(buffer2);
 			
 			if(num)
 				{

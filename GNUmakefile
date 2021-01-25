@@ -26,6 +26,11 @@ ifeq ($(ARCH),i386)
 CFLAGS =-m32 -O2 -fPIC -DARCH="$(ARCH)" -DLINUX -DSTDC_HEADERS -I/usr/include
 endif
 
+# Msys2 on Windows for MinGW
+ifeq ($(shell uname -o),Msys)
+LDFLAGS += -lregex
+endif
+
 # flavors of Linux
 ifeq ($(shell uname),Linux)
 #SVNDEV := -D'SVN_REV="$(shell svnversion -n .)"'

@@ -47,7 +47,7 @@ spawncmd_t;
 #define SPAWN_RE  2
 
 spawncmd_t spawncmds[SPAWN_MAXCMDS];
-int maxspawn_cmds = 0;
+long long maxspawn_cmds = 0;
 
 
 
@@ -75,7 +75,7 @@ qboolean ReadSpawnFile(char *spawnname, qboolean onelevelflag)
 	while(fgets(buffer, 256, spawnfile))
 		{
 			char *cp = buffer;
-			int len;
+			size_t len;
 			
 			// remove '\n'
 			len = q2a_strlen(buffer) - 1;
@@ -120,7 +120,7 @@ qboolean ReadSpawnFile(char *spawnname, qboolean onelevelflag)
 							continue;
 						}
 						
-					spawncmds[maxspawn_cmds].spawncmd = gi.TagMalloc (len, TAG_GAME);
+					spawncmds[maxspawn_cmds].spawncmd = gi.TagMalloc ((int)len, TAG_GAME);
 					q2a_strcpy(spawncmds[maxspawn_cmds].spawncmd, cp);
 					
 					if(spawncmds[maxspawn_cmds].type == SPAWN_RE)
@@ -181,7 +181,7 @@ void freeSpawnLists(void)
 
 void freeOneLevelSpawnLists(void)
 {
-	int spawn = 0;
+	long long spawn = 0;
 	
 	while(spawn < maxspawn_cmds)
 		{
@@ -317,7 +317,7 @@ void displayNextSpawn(edict_t *ent, int client, long spawncmd)
 void spawncmdRun(int startarg, edict_t *ent, int client)
 {
 	char *cmd;
-	int len;
+	size_t len;
 	
 	if(maxspawn_cmds >= SPAWN_MAXCMDS)
 		{
@@ -363,8 +363,8 @@ void spawncmdRun(int startarg, edict_t *ent, int client)
 		
 	len = q2a_strlen(cmd) + 20;
 	
-	spawncmds[maxspawn_cmds].spawncmd = gi.TagMalloc (len, TAG_GAME);
-	processstring(spawncmds[maxspawn_cmds].spawncmd, cmd, len - 1, 0);
+	spawncmds[maxspawn_cmds].spawncmd = gi.TagMalloc ((int)len, TAG_GAME);
+	processstring(spawncmds[maxspawn_cmds].spawncmd, cmd, (int)len - 1, 0);
 	//  q2a_strcpy(spawncmds[maxspawn_cmds].spawncmd, cmd);
 	
 	if(spawncmds[maxspawn_cmds].type == SPAWN_RE)
@@ -412,7 +412,7 @@ void spawncmdRun(int startarg, edict_t *ent, int client)
 
 void spawnDelRun(int startarg, edict_t *ent, int client)
 {
-	int spawn;
+	size_t	spawn;
 	
 	if (gi.argc() <= startarg)
 		{
@@ -451,9 +451,9 @@ void linkentity_internal(edict_t *ent)
 {
 	if(spawnentities_internal_enable && spawnentities_enable)
 		{
-			if(checkDisabledEntities(*((char **)((unsigned long)ent + entity_classname_offset))))
+			if(checkDisabledEntities(*((char **)((uintptr_t)ent + entity_classname_offset))))
 				{
-					char **classnameptr = ((char **)((unsigned long)ent + entity_classname_offset));
+					char **classnameptr = ((char **)((uintptr_t)ent + entity_classname_offset));
 					
 					*classnameptr = NULL;
 					ent->inuse = FALSE;
@@ -461,14 +461,14 @@ void linkentity_internal(edict_t *ent)
 				}
 		}
 		
-	logEvent(LT_ENTITYCREATE, 0, NULL, *((char **)((unsigned long)ent + entity_classname_offset)), 0, 0.0);
+	logEvent(LT_ENTITYCREATE, 0, NULL, *((char **)((uintptr_t)ent + entity_classname_offset)), 0, 0.0);
 	
 	gi.linkentity(ent);
 }
 
 void unlinkentity_internal(edict_t *ent)
 {
-	logEvent(LT_ENTITYDELETE, 0, NULL, *((char **)((unsigned long)ent + entity_classname_offset)), 0, 0.0);
+	logEvent(LT_ENTITYDELETE, 0, NULL, *((char **)((uintptr_t)ent + entity_classname_offset)), 0, 0.0);
 	
 	gi.unlinkentity(ent);
 }

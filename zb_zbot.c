@@ -636,7 +636,7 @@ void G_RunFrame(void)
 						else if(command == QCMD_RECONNECT)
 						{
 							unsigned int i;
-							char ipbuffer[40];
+							char ipbuffer[40] = { 0 };
 							char *ip = ipbuffer;
 							char *bp = ip;
 
@@ -2091,7 +2091,7 @@ void whois_write_file(void)
 	FILE	*f;
 	char	name[512];
 	char	temp[256];
-	int temp_len;
+	size_t	temp_len;
 	unsigned int i, j, k;
 
 	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
@@ -2157,7 +2157,7 @@ void whois_read_file(void)
 	FILE	*f;
 	char	name[512];
 	unsigned int i,j;
-	int temp_len,name_len;
+	size_t temp_len,name_len;
 	int elements;
 
 	snprintf(name, sizeof name, "%s/q2adminwhois.txt", moddir);
